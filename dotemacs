@@ -25,6 +25,7 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-x\C-j" 'switch-buffer-immediate)
 (global-set-key "\M-i" 'yas/insert-snippet)
+(global-set-key "\C-\M-y" 'clipboard-yank)
 
 
 ;; Default modes

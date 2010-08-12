@@ -77,3 +77,8 @@
 (setq jde-compiler '("javac" ""))
 (setq jde-jdk-registry '(("Sun1.6" . "/usr/lib/jvm/java-6-sun/")))
 (setq jde-jdk '("Sun1.6"))
+
+(add-to-list 'auto-mode-alist	     
+	     (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xslt" "svg" "rss") t) "\\'")
+		   'nxml-mode))
+

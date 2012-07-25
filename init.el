@@ -67,6 +67,11 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+(eval-after-load 'paredit
+  '(progn
+     (define-key paredit-mode-map (kbd "<C-right>") nil)
+     (define-key paredit-mode-map (kbd "<C-left>") nil)))
+
 
 ;; Colour match parens and other structure characters to make code easy to follow
 (global-rainbow-delimiters-mode)

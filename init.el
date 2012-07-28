@@ -9,7 +9,7 @@
 (when (not (null window-system))
   (set-background-color "DarkSlateGrey")
   (set-foreground-color "White")
-  (set-frame-font "-windows-proggy clean-medium-r-normal-sans-13-80-96-96-c-70-iso8859-1")
+;  (set-frame-font "-windows-proggy clean-medium-r-normal-sans-13-80-96-96-c-70-iso8859-1")
   (setq font-lock-comment-face '(:foreground "Pink"))
   (global-set-key [?\C-z] 'undo))
 
@@ -85,10 +85,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(blink-cursor-mode nil)
+ '(column-number-mode t)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:family "ProggySquareTTSZ" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))
  '(highlight ((t (:background "#244444")))))

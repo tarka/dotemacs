@@ -1,2 +1,9 @@
 ac-comphist.dat
-auto-save-list
+auto-save-list/*
+backups/*
+elpa/*
+places
+url/*
+swank/*
+.smex-items
+/eshell

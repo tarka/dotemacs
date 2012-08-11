@@ -80,6 +80,8 @@
 ;;; Enable undo-tree for everything, so you can M - _ to redo
 (global-undo-tree-mode)
 
+; Overide ESK
+(menu-bar-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

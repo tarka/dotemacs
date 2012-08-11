@@ -28,7 +28,7 @@
 (global-set-key "\C-\M-y" 'clipboard-yank)
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
 (if (string-equal system-type "darwin")
-    (setq mac-command-modifier "meta"))
+    (setq mac-command-modifier 'meta))
 
 ;; Default modes
 (show-paren-mode)

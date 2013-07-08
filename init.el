@@ -36,6 +36,8 @@
 (auto-compression-mode t)
 (add-to-list 'completion-ignored-extensions ".svn/")
 
+(add-to-list 'auto-mode-alist '("\\.pp\\'" . puppet-mode))
+
 
 ;; Packages setup
 

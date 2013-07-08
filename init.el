@@ -45,13 +45,16 @@
 (package-initialize)
 
 (defvar my-packages '(starter-kit starter-kit-lisp starter-kit-eshell starter-kit-bindings
-		      clojure-mode clojure-test-mode
+		      clojure-mode clojure-test-mode nrepl
 		      rainbow-delimiters
 		      ac-slime
 		      markdown-mode
 		      popup
 		      undo-tree
-                      auto-complete))
+                      auto-complete
+                      color-theme-solarized
+                      mustache-mode
+                      puppet-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available
@@ -92,10 +95,11 @@
  '(column-number-mode t)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "DarkSlateGrey" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "apple" :family "ProggyClean"))))
- '(highlight ((t (:background "#244444")))))
+(when (not (null window-system))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(default ((t (:inherit nil :stipple nil :background "DarkSlateGrey" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "ProggyCleanTT"))))
+   '(highlight ((t (:background "#244444"))))))

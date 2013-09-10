@@ -9,3 +9,4 @@ swank/*
 /eshell
 /tramp
 *~
+/session.*

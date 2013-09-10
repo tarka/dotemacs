@@ -56,7 +56,8 @@
                       auto-complete
                       color-theme-solarized
                       mustache-mode
-                      puppet-mode))
+                      puppet-mode
+                      yaml-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available

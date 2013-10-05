@@ -57,7 +57,8 @@
                       color-theme-solarized
                       mustache-mode
                       puppet-mode
-                      yaml-mode))
+                      yaml-mode
+                      lua-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available
@@ -71,6 +72,8 @@
 
 
 (add-to-list 'load-path "~/.emacs.d/")
+
+;;;; Misc mode setup
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -78,6 +81,10 @@
   '(progn
      (define-key paredit-mode-map (kbd "<C-right>") nil)
      (define-key paredit-mode-map (kbd "<C-left>") nil)))
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
 
 ;; Colour match parens and other structure characters to make code easy to follow

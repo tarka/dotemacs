@@ -58,7 +58,8 @@
                       mustache-mode
                       puppet-mode
                       yaml-mode
-                      lua-mode))
+                      lua-mode
+                      rust-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available

@@ -46,8 +46,7 @@
              '("marmalade" . "http://marmalade-repo.org/packages/") )
 (package-initialize)
 
-(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-eshell starter-kit-bindings
-		      clojure-mode clojure-test-mode
+(defvar my-packages '(clojure-mode clojure-test-mode
                       cider
 		      rainbow-delimiters
 		      ac-slime

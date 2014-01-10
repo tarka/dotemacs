@@ -39,6 +39,7 @@
 (add-to-list 'auto-mode-alist '("\\.pp\\'" . puppet-mode))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages setup
 
 (require 'package)
@@ -74,7 +75,9 @@
 
 (add-to-list 'load-path "~/.emacs.d/")
 
-;;;; Misc mode setup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Misc mode setup
+
 (require 'auto-complete-config)
 (ac-config-default)
 
@@ -88,11 +91,19 @@
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
 
-;; Colour match parens and other structure characters to make code easy to follow
+;; Colour match parens and other structure characters to make code
+;; easy to follow
 (global-rainbow-delimiters-mode)
 
 ;;; Enable undo-tree for everything, so you can M - _ to redo
 (global-undo-tree-mode)
+
+;; Interactive-do mode, mostly for file find
+(require 'ido)
+(ido-mode t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -111,3 +122,5 @@
    ;; If there is more than one, they won't work right.
    '(default ((t (:inherit nil :stipple nil :background "DarkSlateGrey" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "ProggyCleanTT"))))
    '(highlight ((t (:background "#244444"))))))
+
+

@@ -51,6 +51,7 @@
                       cider
 		      rainbow-delimiters
 		      ac-slime
+		      paredit
 		      markdown-mode
 		      popup
 		      undo-tree
@@ -81,11 +82,6 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-(eval-after-load 'paredit
-  '(progn
-     (define-key paredit-mode-map (kbd "<C-right>") nil)
-     (define-key paredit-mode-map (kbd "<C-left>") nil)))
-
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
@@ -102,6 +98,12 @@
 (require 'ido)
 (ido-mode t)
 
+;; Paredit mode
+(require 'paredit)
+(define-key paredit-mode-map (kbd "<C-right>") nil)
+(define-key paredit-mode-map (kbd "<C-left>") nil)
+
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -122,5 +124,3 @@
    ;; If there is more than one, they won't work right.
    '(default ((t (:inherit nil :stipple nil :background "DarkSlateGrey" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "ProggyCleanTT"))))
    '(highlight ((t (:background "#244444"))))))
-
-

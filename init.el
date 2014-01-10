@@ -94,9 +94,6 @@
 ;;; Enable undo-tree for everything, so you can M - _ to redo
 (global-undo-tree-mode)
 
-; Overide ESK
-(menu-bar-mode)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -90,6 +90,7 @@
 
 (require 'recentf)
 (recentf-mode 1)
+(global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 (require 'auto-complete-config)
 (ac-config-default)

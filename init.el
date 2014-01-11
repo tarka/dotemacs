@@ -51,7 +51,8 @@
         ("melpa"       . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-(defvar my-packages '(clojure-mode clojure-test-mode
+(defvar my-packages '(yasnippet-bundle
+		      clojure-mode clojure-test-mode
                       cider
 		      rainbow-delimiters
 		      ac-slime

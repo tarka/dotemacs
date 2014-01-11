@@ -83,6 +83,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc mode setup
 
+(require 'saveplace)
+(setq-default save-place t)
+
+(require 'uniquify)
+
+(require 'recentf)
+(recentf-mode 1)
+
 (require 'auto-complete-config)
 (ac-config-default)
 

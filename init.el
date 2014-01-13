@@ -112,6 +112,9 @@
 ;; Interactive-do mode, mostly for file find
 (require 'ido)
 (ido-mode t)
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-create-new-buffer 'always)
 
 ;; Paredit mode
 (require 'paredit)
@@ -120,8 +123,8 @@
 
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

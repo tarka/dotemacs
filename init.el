@@ -31,6 +31,10 @@
 (if (string-equal system-type "darwin")
     (setq mac-command-modifier 'meta))
 
+(global-set-key (kbd "C-S-j") (lambda () ;; Join-forward Intellij-style
+				(interactive)
+				(join-line 1)))
+
 ;; Default modes
 (show-paren-mode)
 (global-font-lock-mode t)

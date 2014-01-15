@@ -71,7 +71,8 @@
                       puppet-mode
                       yaml-mode
                       lua-mode
-                      rust-mode))
+                      rust-mode
+		      jedi))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available
@@ -86,6 +87,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/")
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc mode setup
 
@@ -93,6 +95,7 @@
 (setq-default save-place t)
 
 (require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
 
 (require 'recentf)
 (recentf-mode 1)
@@ -126,6 +129,14 @@
 (define-key paredit-mode-map (kbd "<C-left>") nil)
 
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+
+
+;; Python setup
+;(require 'pymacs)
+;(pymacs-load "ropemacs" "rope-")
+
+(setq jedi:setup-keys t)
+(add-hook 'python-mode-hook 'jedi:setup)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

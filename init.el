@@ -56,9 +56,9 @@
         ("melpa"       . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-(defvar my-packages '(yasnippet-bundle
+(defvar my-packages '(yasnippet
 		      clojure-mode clojure-test-mode
-                      cider
+                      cider ac-nrepl
 		      rainbow-delimiters
 		      ac-slime
 		      paredit
@@ -129,6 +129,7 @@
 (define-key paredit-mode-map (kbd "<C-left>") nil)
 
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+(add-hook 'clojure-mode 'enable-paredit-mode)
 
 
 ;; Python setup
@@ -137,6 +138,19 @@
 
 (setq jedi:setup-keys t)
 (add-hook 'python-mode-hook 'jedi:setup)
+
+;; Clojure setup
+(require 'ac-nrepl)
+(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+(add-hook 'cider-mode-hook 'ac-nrepl-setup)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'cider-repl-mode))
+
+;; Yasnippet
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"))
+(yas-global-mode 1)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

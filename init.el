@@ -57,6 +57,7 @@
 (package-initialize)
 
 (defvar my-packages '(yasnippet
+		      clojure-snippets
 		      clojure-mode clojure-test-mode
                       cider ac-nrepl
 		      rainbow-delimiters
@@ -129,7 +130,6 @@
 (define-key paredit-mode-map (kbd "<C-left>") nil)
 
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-(add-hook 'clojure-mode 'enable-paredit-mode)
 
 
 ;; Python setup
@@ -140,16 +140,19 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 
 ;; Clojure setup
+(require 'clojure-mode)
+(add-hook 'clojure-mode-hook 'enable-paredit-mode)
+
 (require 'ac-nrepl)
 (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
 (add-hook 'cider-mode-hook 'ac-nrepl-setup)
 (eval-after-load "auto-complete"
   '(add-to-list 'ac-modes 'cider-repl-mode))
 
+
 ;; Yasnippet
 (require 'yasnippet)
-(setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"))
+(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets" t)
 (yas-global-mode 1)
 
 

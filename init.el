@@ -61,7 +61,6 @@
 		      clojure-mode clojure-test-mode
                       cider ac-nrepl
 		      rainbow-delimiters
-		      ac-slime
 		      paredit
 		      markdown-mode
 		      popup
@@ -154,7 +153,11 @@
 (require 'yasnippet)
 (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets" t)
 (yas-global-mode 1)
-
+(setq yas-prompt-functions '(yas-ido-prompt
+			     yas-dropdown-prompt
+			     yas-x-prompt
+			     yas-completing-prompt
+			     yas-no-prompt))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -63,6 +63,7 @@
 		      rainbow-delimiters
 		      paredit
 		      markdown-mode
+		      jinja2-mode
 		      popup
 		      undo-tree
                       auto-complete
@@ -158,6 +159,10 @@
 			     yas-x-prompt
 			     yas-completing-prompt
 			     yas-no-prompt))
+
+;; Jinja2
+(require 'jinja2-mode)
+(add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

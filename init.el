@@ -59,21 +59,22 @@
 (defvar my-packages '(yasnippet
 		      clojure-snippets
 		      clojure-mode clojure-test-mode
-                      cider ac-nrepl
+		      cider ac-nrepl
 		      rainbow-delimiters
 		      paredit
 		      markdown-mode
 		      jinja2-mode
-		      popup
 		      undo-tree
-                      auto-complete
-                      color-theme-solarized
-                      mustache-mode
-                      puppet-mode
-                      yaml-mode
-                      lua-mode
-                      rust-mode
-		      jedi))
+		      auto-complete
+		      mustache-mode
+		      puppet-mode
+		      yaml-mode
+		      lua-mode
+		      rust-mode
+		      jedi
+		      popup
+		      color-theme-solarized
+		      hide-lines))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available

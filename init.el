@@ -1,10 +1,13 @@
 
-;; Appearance
+;; Appearance and behaviour
 
 ;(menu-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode 1)
 (setq inhibit-startup-screen t)
+
+(defvar mac-p (string-equal system-type "darwin"))
+
 
 (when (not (null window-system))
   (set-background-color "DarkSlateGrey")
@@ -14,10 +17,14 @@
   (setq font-lock-comment-face '(:foreground "Pink"))
   (global-set-key [?\C-z] 'undo))
 
+
 ;; Keys
 (defun switch-buffer-immediate ()
   (interactive)
   (switch-to-buffer (other-buffer)))
+
+(if mac-p
+    (setq mac-command-modifier 'meta))
 
 (define-key function-key-map [delete] "\C-d")
 (global-set-key [?\C-`] 'next-error)
@@ -28,8 +35,7 @@
 (global-set-key "\M-i" 'yas/insert-snippet)
 (global-set-key "\C-\M-y" 'clipboard-yank)
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
-(if (string-equal system-type "darwin")
-    (setq mac-command-modifier 'meta))
+
 
 (global-set-key (kbd "C-S-j") (lambda () ;; Join-forward Intellij-style
 				(interactive)
@@ -56,7 +62,8 @@
         ("melpa"       . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-(defvar my-packages '(yasnippet
+(defvar my-packages '(exec-path-from-shell
+		      yasnippet
 		      clojure-snippets
 		      clojure-mode clojure-test-mode
 		      cider ac-nrepl
@@ -92,6 +99,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc mode setup
+
+(if mac-p
+    (exec-path-from-shell-initialize))
 
 (require 'saveplace)
 (setq-default save-place t)

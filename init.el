@@ -175,6 +175,11 @@
 (require 'jinja2-mode)
 (add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 
+;; Gnus
+(setq gnus-select-method '(nntp "news.eu.supernews.com"))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (custom-set-variables

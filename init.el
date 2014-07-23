@@ -63,6 +63,7 @@
 (package-initialize)
 
 (defvar my-packages '(exec-path-from-shell
+		      magit
 		      yasnippet
 		      clojure-snippets
 		      clojure-mode clojure-test-mode

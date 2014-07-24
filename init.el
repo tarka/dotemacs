@@ -66,7 +66,7 @@
 		      magit
 		      yasnippet
 		      clojure-snippets
-		      clojure-mode clojure-test-mode
+		      clojure-mode
 		      cider ac-nrepl
 		      rainbow-delimiters
 		      paredit

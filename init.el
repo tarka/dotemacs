@@ -67,7 +67,9 @@
 		      yasnippet
 		      clojure-snippets
 		      clojure-mode
-		      cider ac-nrepl
+		      cider
+		      midje-mode
+		      ac-nrepl
 		      rainbow-delimiters
 		      paredit
 		      markdown-mode

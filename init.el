@@ -97,11 +97,13 @@
     (package-install p)))
 
 
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc mode setup
+
+(setq default-directory (expand-file-name "~"))
 
 (if mac-p
     (exec-path-from-shell-initialize))

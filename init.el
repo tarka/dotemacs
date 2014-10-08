@@ -23,8 +23,9 @@
   (interactive)
   (switch-to-buffer (other-buffer)))
 
-(if mac-p
-    (setq mac-command-modifier 'meta))
+(when mac-p
+  (setq mac-command-modifier 'meta)
+  (setq mac-allow-anti-aliasing nil))
 
 (define-key function-key-map [delete] "\C-d")
 (global-set-key [?\C-`] 'next-error)
@@ -197,7 +198,7 @@
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (when (not (null window-system))
-  (setq proggy (if (eq window-system 'x) "ProggyCleanTT" "ProggyClean"))
+  (setq proggy "ProggyCleanTTSZBP")
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.

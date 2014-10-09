@@ -85,7 +85,8 @@
 		      jedi
 		      popup
 		      color-theme-solarized
-		      hide-lines))
+		      hide-lines
+		      wc-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available
@@ -185,6 +186,8 @@
 (setq gnus-select-method '(nntp "news.eu.supernews.com"))
 
 
+(require 'wc-mode)
+(add-hook 'markdown-mode-hook 'wc-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

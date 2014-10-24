@@ -82,7 +82,6 @@
 		      yaml-mode
 		      lua-mode
 		      rust-mode
-		      jedi
 		      popup
 		      color-theme-solarized
 		      hide-lines
@@ -154,8 +153,6 @@
 ;(require 'pymacs)
 ;(pymacs-load "ropemacs" "rope-")
 
-(setq jedi:setup-keys t)
-(add-hook 'python-mode-hook 'jedi:setup)
 
 ;; Clojure setup
 (require 'clojure-mode)

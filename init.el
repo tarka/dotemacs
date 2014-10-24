@@ -50,7 +50,6 @@
 
 (add-to-list 'auto-mode-alist '("\\.pp\\'" . puppet-mode))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages setup
 
@@ -108,6 +107,13 @@
 
 (if mac-p
     (exec-path-from-shell-initialize))
+
+(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      vc-make-backup-files t)
 
 (require 'saveplace)
 (setq-default save-place t)

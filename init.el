@@ -207,7 +207,7 @@
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (when (not (null window-system))
-  (setq proggy "ProggyCleanTTSZBP")
+  (setq proggy (if (eq window-system 'x) "ProggyCleanTT" "ProggyClean"))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.

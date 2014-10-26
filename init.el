@@ -52,6 +52,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages setup
+;; Note; we're managing initialisation ourselves so we can do
+;; everything in init.el
 
 (require 'package)
 (setq package-archives
@@ -60,18 +62,21 @@
         ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
         ("melpa"        . "http://melpa.milkbox.net/packages/")
         ("org"          . "http://orgmode.org/elpa/")))
+
+(setq package-enable-at-startup nil)
 (package-initialize)
 
 (defvar my-packages '(exec-path-from-shell
 		      magit
 		      yasnippet
-		      clojure-snippets
+		      ;clojure-snippets
 		      clojure-mode
 		      cider
 		      midje-mode
 		      ac-nrepl
 		      rainbow-delimiters
 		      paredit
+		      paredit-menu
 		      markdown-mode
 		      jinja2-mode
 		      undo-tree
@@ -95,9 +100,6 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
-
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/"))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -149,6 +151,7 @@
 
 ;; Paredit mode
 (require 'paredit)
+(require 'paredit-menu)
 (define-key paredit-mode-map (kbd "<C-right>") nil)
 (define-key paredit-mode-map (kbd "<C-left>") nil)
 

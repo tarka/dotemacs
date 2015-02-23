@@ -50,6 +50,8 @@
 
 (add-to-list 'auto-mode-alist '("\\.pp\\'" . puppet-mode))
 
+(setq-default indent-tabs-mode nil)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages setup
 ;; Note; we're managing initialisation ourselves so we can do

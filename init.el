@@ -33,7 +33,7 @@
 (global-set-key "\M-m" 'set-mark-command)
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-x\C-j" 'switch-buffer-immediate)
-(global-set-key "\M-i" 'yas/insert-snippet)
+;(global-set-key "\M-i" 'yas/insert-snippet)
 (global-set-key "\C-\M-y" 'clipboard-yank)
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
 
@@ -69,24 +69,27 @@
 (package-initialize)
 
 (defvar my-packages '(exec-path-from-shell
+                      company
 		      magit
-		      yasnippet
+		      ;yasnippet
 		      ;clojure-snippets
 		      clojure-mode
 		      cider
 		      midje-mode
-		      ac-nrepl
+		      ;ac-nrepl
 		      rainbow-delimiters
 		      paredit
 		      paredit-menu
 		      markdown-mode
 		      jinja2-mode
 		      undo-tree
-		      auto-complete
+		      ;auto-complete
 		      mustache-mode
 		      puppet-mode
 		      yaml-mode
 		      lua-mode
+                      go-mode
+                      company-go
 		      rust-mode
 		      popup
 		      color-theme-solarized
@@ -119,6 +122,9 @@
       version-control t
       vc-make-backup-files t)
 
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+
 (require 'saveplace)
 (setq-default save-place t)
 
@@ -129,12 +135,12 @@
 (recentf-mode 1)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-(require 'auto-complete-config)
-(ac-config-default)
+;(require 'auto-complete-config)
+;(ac-config-default)
 
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+;(require 'yaml-mode)
+;(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+;(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
 
 ;; Colour match parens and other structure characters to make code
@@ -169,26 +175,31 @@
 (require 'clojure-mode)
 (add-hook 'clojure-mode-hook 'enable-paredit-mode)
 
-(require 'ac-nrepl)
-(add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-(add-hook 'cider-mode-hook 'ac-nrepl-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'cider-repl-mode))
+;; (require 'ac-nrepl)
+;; (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
+;; (add-hook 'cider-mode-hook 'ac-nrepl-setup)
+;; (eval-after-load "auto-complete"
+;;   '(add-to-list 'ac-modes 'cider-repl-mode))
 
+;; Go setup
+(require 'company-go)
+(add-hook 'go-mode-hook (lambda ()
+                          (set (make-local-variable 'company-backends) '(company-go))
+                          (company-mode)))
 
 ;; Yasnippet
-(require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets" t)
-(yas-global-mode 1)
-(setq yas-prompt-functions '(yas-ido-prompt
-			     yas-dropdown-prompt
-			     yas-x-prompt
-			     yas-completing-prompt
-			     yas-no-prompt))
+;; (require 'yasnippet)
+;; (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets" t)
+;; (yas-global-mode 1)
+;; (setq yas-prompt-functions '(yas-ido-prompt
+;; 			     yas-dropdown-prompt
+;; 			     yas-x-prompt
+;; 			     yas-completing-prompt
+;; 			     yas-no-prompt))
 
 ;; Jinja2
-(require 'jinja2-mode)
-(add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
+;; (require 'jinja2-mode)
+;; (add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 
 ;; Gnus
 (setq gnus-select-method '(nntp "news.eu.supernews.com"))

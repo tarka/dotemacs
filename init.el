@@ -175,17 +175,23 @@
 (require 'clojure-mode)
 (add-hook 'clojure-mode-hook 'enable-paredit-mode)
 
+
 ;; (require 'ac-nrepl)
 ;; (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
 ;; (add-hook 'cider-mode-hook 'ac-nrepl-setup)
 ;; (eval-after-load "auto-complete"
 ;;   '(add-to-list 'ac-modes 'cider-repl-mode))
 
+
 ;; Go setup
+(setq gofmt-command "goimports")
+(add-hook 'before-save-hook #'gofmt-before-save)
+
 (require 'company-go)
 (add-hook 'go-mode-hook (lambda ()
                           (set (make-local-variable 'company-backends) '(company-go))
                           (company-mode)))
+
 
 ;; Yasnippet
 ;; (require 'yasnippet)
@@ -197,9 +203,11 @@
 ;; 			     yas-completing-prompt
 ;; 			     yas-no-prompt))
 
+
 ;; Jinja2
 ;; (require 'jinja2-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
+
 
 ;; Gnus
 (setq gnus-select-method '(nntp "news.eu.supernews.com"))

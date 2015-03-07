@@ -184,6 +184,11 @@
 
 
 ;; Go setup
+;;
+;;    go get -v -u code.google.com/p/rog-go/exp/cmd/godef
+;;    go get -v -u github.com/nsf/gocode
+;;    go get -v -u golang.org/x/tools/cmd/goimports
+
 (setq gofmt-command "goimports")
 (add-hook 'before-save-hook #'gofmt-before-save)
 

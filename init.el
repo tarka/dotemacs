@@ -115,15 +115,14 @@
 (if mac-p
     (exec-path-from-shell-initialize))
 
+;; Misc. editing/saving settings
+
 (setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
 (setq delete-old-versions t
       kept-new-versions 6
       kept-old-versions 2
       version-control t
       vc-make-backup-files t)
-
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
 
 (require 'saveplace)
 (setq-default save-place t)
@@ -157,6 +156,7 @@
       ido-enable-flex-matching t
       ido-create-new-buffer 'always)
 
+
 ;; Paredit mode
 (require 'paredit)
 (require 'paredit-menu)
@@ -165,6 +165,18 @@
 
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
 
+;; Company mode auto-completion setup
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+
+(require 'color)
+(let ((bg (face-attribute 'default :background)))
+  (custom-set-faces
+   `(company-tooltip ((t (:inherit default :background ,(color-darken-name bg 15)))))
+   `(company-scrollbar-bg ((t (:background ,(color-darken-name bg 10)))))
+   `(company-scrollbar-fg ((t (:background ,(color-darken-name bg 5)))))
+   `(company-tooltip-selection ((t (:inherit font-lock-comment-face :background "MidnightBlue"))))
+   `(company-tooltip-common ((t (:inherit font-lock-doc-face :background "DarkBlue"))))))
 
 ;; Python setup
 ;(require 'pymacs)

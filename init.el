@@ -91,6 +91,7 @@
                       go-mode
                       company-go
 		      rust-mode
+                      toml-mode
 		      popup
 		      color-theme-solarized
 		      hide-lines

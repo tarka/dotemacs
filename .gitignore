@@ -10,3 +10,4 @@ swank/*
 /tramp
 *~
 /session.*
+/.python-environments

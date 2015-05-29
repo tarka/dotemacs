@@ -17,6 +17,7 @@
   (setq font-lock-comment-face '(:foreground "Pink"))
   (global-set-key [?\C-z] 'undo))
 
+(setq mac-allow-anti-aliasing nil)
 
 ;; Keys
 (defun switch-buffer-immediate ()
@@ -33,7 +34,6 @@
 (global-set-key "\M-m" 'set-mark-command)
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-x\C-j" 'switch-buffer-immediate)
-;(global-set-key "\M-i" 'yas/insert-snippet)
 (global-set-key "\C-\M-y" 'clipboard-yank)
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
 
@@ -69,27 +69,26 @@
 (package-initialize)
 
 (defvar my-packages '(exec-path-from-shell
+                      helm
                       company
 		      magit
-		      ;yasnippet
-		      ;clojure-snippets
 		      clojure-mode
 		      cider
 		      midje-mode
-		      ;ac-nrepl
 		      rainbow-delimiters
 		      paredit
 		      paredit-menu
 		      markdown-mode
 		      jinja2-mode
 		      undo-tree
-		      ;auto-complete
 		      mustache-mode
 		      puppet-mode
 		      yaml-mode
 		      lua-mode
                       go-mode
                       company-go
+                      anaconda-mode
+                      company-anaconda
 		      rust-mode
                       toml-mode
 		      popup
@@ -155,7 +154,13 @@
 (ido-mode t)
 (setq ido-enable-prefix nil
       ido-enable-flex-matching t
-      ido-create-new-buffer 'always)
+      ido-create-new-buffer 'always
+      ido-auto-merge-work-directories-length -1
+      ido-file-extensions-order '(".md" ".txt" ".py" ".xml" ".el" ".ini" ".cfg" ".cnf"))
+
+
+;; (require 'helm-config)
+;; (helm-mode 1)
 
 
 ;; Paredit mode
@@ -182,6 +187,13 @@
 ;; Python setup
 ;(require 'pymacs)
 ;(pymacs-load "ropemacs" "rope-")
+
+;(add-hook 'python-mode-hook 'jedi:setup)
+
+(add-hook 'python-mode-hook 'anaconda-mode)
+(add-to-list 'company-backends 'company-anaconda)
+
+
 
 
 ;; Clojure setup
@@ -211,16 +223,11 @@
                           (company-mode)
                           (local-set-key  "\M-." 'godef-jump)))
 
-
-;; Yasnippet
-;; (require 'yasnippet)
-;; (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets" t)
-;; (yas-global-mode 1)
-;; (setq yas-prompt-functions '(yas-ido-prompt
-;; 			     yas-dropdown-prompt
-;; 			     yas-x-prompt
-;; 			     yas-completing-prompt
-;; 			     yas-no-prompt))
+;; Rust setup
+(setq racer-rust-src-path "~/software/rust/src/")
+(setq racer-cmd "~/software/racer/target/release/racer")
+(add-to-list 'load-path "~/software/racer/editors")
+(eval-after-load "rust-mode" '(require 'racer))
 
 
 ;; Jinja2

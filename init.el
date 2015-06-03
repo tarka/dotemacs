@@ -69,7 +69,6 @@
 (package-initialize)
 
 (defvar my-packages '(exec-path-from-shell
-                      helm
                       company
 		      magit
 		      clojure-mode

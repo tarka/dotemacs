@@ -226,7 +226,7 @@
 ;; Rust setup
 (setq racer-rust-src-path "~/software/rust/src/")
 (setq racer-cmd "~/software/racer/target/release/racer")
-(add-to-list 'load-path "~/software/racer/editors")
+(add-to-list 'load-path "~/software/racer/editors/emacs")
 (eval-after-load "rust-mode" '(require 'racer))
 
 

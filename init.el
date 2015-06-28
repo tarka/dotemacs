@@ -93,7 +93,8 @@
 		      popup
 		      color-theme-solarized
 		      hide-lines
-		      wc-mode))
+		      wc-mode
+                      ssh-file-modes))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available

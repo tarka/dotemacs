@@ -227,7 +227,9 @@
 (setq racer-rust-src-path "~/software/rust/src/")
 (setq racer-cmd "~/software/racer/target/release/racer")
 (add-to-list 'load-path "~/software/racer/editors/emacs")
-(eval-after-load "rust-mode" '(require 'racer))
+(eval-after-load "rust-mode" (lambda ()
+                               (require 'racer)
+                               (setq-local company-idle-delay 0.5)))
 
 
 ;; Jinja2

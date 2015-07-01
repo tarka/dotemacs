@@ -240,13 +240,14 @@
 (setq racer-rust-src-path "~/software/rust/src/")
 (setq racer-cmd "~/software/racer/target/release/racer")
 (add-to-list 'load-path "~/software/racer/editors/emacs")
-(eval-after-load "rust-mode" (lambda ()
-                               (modify-syntax-entry ?_ "$" rust-mode-syntax-table)
-                               (require 'racer)
-                               (racer-activate)
-                               (setq-local company-idle-delay 0.5)
-                               ;(define-key rust-mode-map (kbd "TAB") #'racer-complete-or-indent)
-                               (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)))
+(require 'rust-mode)
+(add-hook 'rust-mode-hook (lambda ()
+                            (modify-syntax-entry ?_ "$" rust-mode-syntax-table)
+                            (require 'racer)
+                            (racer-activate)
+                            (setq-local company-idle-delay 0.5)
+                            (define-key rust-mode-map (kbd "TAB") #'racer-complete-or-indent)
+                            (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)))
 
 
 ;; Jinja2

@@ -77,6 +77,7 @@
 		      rainbow-delimiters
 		      paredit
 		      paredit-menu
+                      yasnippet
 		      markdown-mode
 		      jinja2-mode
 		      undo-tree
@@ -163,6 +164,18 @@
 ;; (helm-mode 1)
 
 
+;; Yasnippet mode
+(require 'yasnippet)
+(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets" t)
+(yas-global-mode 1)
+(setq yas-prompt-functions '(yas-ido-prompt
+                             yas-dropdown-prompt
+                             yas-x-prompt
+                             yas-completing-prompt
+                             yas-no-prompt))
+(global-set-key "\M-i" 'yas/insert-snippet)
+
+
 ;; Paredit mode
 (require 'paredit)
 (require 'paredit-menu)
@@ -228,8 +241,12 @@
 (setq racer-cmd "~/software/racer/target/release/racer")
 (add-to-list 'load-path "~/software/racer/editors/emacs")
 (eval-after-load "rust-mode" (lambda ()
+                               (modify-syntax-entry ?_ "$" rust-mode-syntax-table)
                                (require 'racer)
-                               (setq-local company-idle-delay 0.5)))
+                               (racer-activate)
+                               (setq-local company-idle-delay 0.5)
+                               ;(define-key rust-mode-map (kbd "TAB") #'racer-complete-or-indent)
+                               (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)))
 
 
 ;; Jinja2

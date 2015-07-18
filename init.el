@@ -62,7 +62,7 @@
       '(("gnu"          . "http://elpa.gnu.org/packages/")
         ("marmalade"    . "http://marmalade-repo.org/packages/")
         ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
-        ("melpa"        . "http://melpa.milkbox.net/packages/")
+;        ("melpa"        . "http://melpa.milkbox.net/packages/")
         ("org"          . "http://orgmode.org/elpa/")))
 
 (setq package-enable-at-startup nil)
@@ -88,7 +88,7 @@
                       go-mode
                       company-go
                       anaconda-mode
-                      company-anaconda
+;                      company-anaconda
 		      rust-mode
                       toml-mode
 		      popup

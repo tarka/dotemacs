@@ -145,7 +145,9 @@
 
 ;; Colour match parens and other structure characters to make code
 ;; easy to follow
-(global-rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+;(require 'rainbow-delimiters)
+;(global-rainbow-delimiters-mode)
 
 ;;; Enable undo-tree for everything, so you can M - _ to redo
 (global-undo-tree-mode)

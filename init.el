@@ -215,6 +215,7 @@
 (require 'clojure-mode)
 (add-hook 'clojure-mode-hook 'enable-paredit-mode)
 
+(setq cider-prompt-for-symbol nil)
 
 ;; (require 'ac-nrepl)
 ;; (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)

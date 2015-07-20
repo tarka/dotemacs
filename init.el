@@ -245,7 +245,7 @@
 (add-to-list 'load-path "~/software/racer/editors/emacs")
 (require 'rust-mode)
 (add-hook 'rust-mode-hook (lambda ()
-                            (modify-syntax-entry ?_ "$" rust-mode-syntax-table)
+                            ;(modify-syntax-entry ?_ "_" rust-mode-syntax-table)
                             (require 'racer)
                             (racer-activate)
                             (setq-local company-idle-delay 0.5)

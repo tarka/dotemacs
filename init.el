@@ -81,6 +81,7 @@
 		      markdown-mode
                       web-mode
 		      jinja2-mode
+                      less-css-mode
 		      undo-tree
 		      mustache-mode
 		      puppet-mode

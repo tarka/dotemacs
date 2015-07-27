@@ -212,10 +212,12 @@
 
 
 ;; Web-mode
+(require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.us\\'" . web-mode))
 (setq web-mode-engines-alist
-      '(("underscore"  . "\\.us\\.")))
-
+      '(("underscore"  . "\\.us\\'")))
+(setq web-mode-enable-block-face t)
+(setq web-mode-enable-part-face t)
 
 
 ;; Clojure setup
@@ -294,3 +296,4 @@
    ;; If there is more than one, they won't work right.
    '(default ((t (:inherit nil :stipple nil :background "DarkSlateGrey" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 72 :width normal :foundry "unknown" :family "Input Mono"))))
    '(highlight ((t (:background "#244444"))))))
+

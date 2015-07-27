@@ -79,6 +79,7 @@
 		      paredit-menu
                       yasnippet
 		      markdown-mode
+                      web-mode
 		      jinja2-mode
 		      undo-tree
 		      mustache-mode
@@ -208,6 +209,11 @@
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-to-list 'company-backends 'company-anaconda)
 
+
+;; Web-mode
+(add-to-list 'auto-mode-alist '("\\.us\\'" . web-mode))
+(setq web-mode-engines-alist
+      '(("underscore"  . "\\.us\\.")))
 
 
 

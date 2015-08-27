@@ -129,6 +129,8 @@
 
 (require 'saveplace)
 (setq-default save-place t)
+(setq save-place-file "~/.emacs.d/saved-places")
+
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -270,6 +272,10 @@
 ;; Gnus
 (setq gnus-select-method '(nntp "news.eu.supernews.com"))
 
+;; Markdown
+(autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (require 'wc-mode)
 (add-hook 'markdown-mode-hook 'wc-mode)

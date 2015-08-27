@@ -11,3 +11,5 @@ swank/*
 *~
 /session.*
 /.python-environments
+/saved-places
+/elpa.prev

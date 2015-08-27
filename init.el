@@ -83,6 +83,7 @@
 		      jinja2-mode
                       less-css-mode
 		      undo-tree
+                      json-mode
 		      mustache-mode
 		      puppet-mode
 		      yaml-mode

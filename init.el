@@ -219,6 +219,11 @@
 (add-to-list 'auto-mode-alist '("\\.us\\'" . web-mode))
 (setq web-mode-engines-alist
       '(("underscore"  . "\\.us\\'")))
+
+(add-to-list 'auto-mode-alist '("\\.selmer\\'" . web-mode))
+(setq web-mode-engines-alist
+      '(("django"  . "\\.selmer\\'")))
+
 (setq web-mode-enable-block-face t)
 (setq web-mode-enable-part-face t)
 

@@ -34,6 +34,7 @@
 (global-set-key "\M-m" 'set-mark-command)
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-x\C-j" 'switch-buffer-immediate)
+(global-set-key "\C-c\C-j" 'switch-buffer-immediate)
 (global-set-key "\C-\M-y" 'clipboard-yank)
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
 
@@ -72,6 +73,7 @@
                       company
 		      magit
 		      clojure-mode
+                      clj-refactor
 		      cider
 		      midje-mode
 		      rainbow-delimiters
@@ -230,7 +232,10 @@
 
 ;; Clojure setup
 (require 'clojure-mode)
-(add-hook 'clojure-mode-hook 'enable-paredit-mode)
+(add-hook 'clojure-mode-hook (lambda ()
+                               (enable-paredit-mode)
+                               (clj-refactor-mode 1)
+                               (cljr-add-keybindings-with-prefix "C-c C-r")))
 
 (setq cider-prompt-for-symbol nil)
 

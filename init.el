@@ -35,6 +35,8 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-x\C-j" 'switch-buffer-immediate)
 (global-set-key "\C-c\C-j" 'switch-buffer-immediate)
+(global-set-key "\C-x\C-o" 'other-window)
+(global-set-key "\C-c\C-o" 'other-window)
 (global-set-key "\C-\M-y" 'clipboard-yank)
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
 
@@ -176,7 +178,7 @@
 ;; Yasnippet mode
 (require 'yasnippet)
 (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets" t)
-(yas-global-mode 1)
+;(yas-global-mode 1)
 (setq yas-prompt-functions '(yas-ido-prompt
                              yas-dropdown-prompt
                              yas-x-prompt
@@ -289,9 +291,12 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (require 'wc-mode)
-(add-hook 'markdown-mode-hook 'wc-mode)
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
-(add-hook 'markdown-mode-hook 'flyspell-mode)
+(add-hook 'markdown-mode-hook (lambda ()
+                                (wc-mode)
+                                (auto-fill-mode)
+                                (set-fill-column 80)
+                                (flyspell-mode)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

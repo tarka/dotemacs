@@ -97,6 +97,7 @@
                       anaconda-mode
 ;                      company-anaconda
 		      rust-mode
+                      racer
                       toml-mode
 		      popup
 		      color-theme-solarized
@@ -266,16 +267,17 @@
 ;; Rust setup
 (setq racer-rust-src-path "~/software/rust/src/")
 (setq racer-cmd "~/software/racer/target/release/racer")
-(add-to-list 'load-path "~/software/racer/editors/emacs")
 (require 'rust-mode)
 (add-hook 'rust-mode-hook (lambda ()
                             ;(modify-syntax-entry ?_ "_" rust-mode-syntax-table)
-                            (require 'racer)
-                            (racer-activate)
+                            (racer-mode)
                             (setq-local company-idle-delay 0.5)
                             (define-key rust-mode-map (kbd "TAB") #'racer-complete-or-indent)
-                            (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)))
+                            (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)
+                            (setq company-tooltip-align-annotations t)))
 
+(add-hook 'racer-mode-hook (lambda ()
+                             (company-mode)))
 
 ;; Jinja2
 ;; (require 'jinja2-mode)

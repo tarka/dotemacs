@@ -103,7 +103,8 @@
 		      color-theme-solarized
 		      hide-lines
 		      wc-mode
-                      ssh-file-modes))
+                      ssh-file-modes
+                      dockerfile-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available
@@ -298,6 +299,9 @@
                                 (auto-fill-mode)
                                 (set-fill-column 80)
                                 (flyspell-mode)))
+
+;; Docker support
+(add-to-list 'auto-mode-alist '("\\.dockerfile\\'" . dockerfile-mode))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

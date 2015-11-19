@@ -13,3 +13,5 @@ swank/*
 /.python-environments
 /saved-places
 /elpa.prev
+/ido.last
+/recentf

@@ -75,7 +75,6 @@
                       company
 		      magit
 		      clojure-mode
-                      clj-refactor
 		      cider
 		      midje-mode
 		      rainbow-delimiters

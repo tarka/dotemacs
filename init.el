@@ -95,8 +95,6 @@
                       company-go
                       anaconda-mode
 ;                      company-anaconda
-		      rust-mode
-                      racer
                       toml-mode
 		      popup
 		      color-theme-solarized
@@ -265,11 +263,15 @@
                           (local-set-key  "\M-." 'godef-jump)))
 
 ;; Rust setup
+(autoload 'rust-mode "rust-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
 (setq racer-rust-src-path "~/software/rust/src/")
 (setq racer-cmd "~/software/racer/target/release/racer")
-(require 'rust-mode)
+;(require 'rust-mode)
 (add-hook 'rust-mode-hook (lambda ()
-                            ;(modify-syntax-entry ?_ "_" rust-mode-syntax-table)
+                                        ;(modify-syntax-entry ?_ "_" rust-mode-syntax-table)
+                            (require 'racer)
                             (racer-mode)
                             (setq-local company-idle-delay 0.5)
                             (define-key rust-mode-map (kbd "TAB") #'racer-complete-or-indent)
@@ -323,4 +325,3 @@
    ;; If there is more than one, they won't work right.
    `(default ((t (:inherit nil :stipple nil :background "DarkSlateGrey" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family ,proggy))))
    '(highlight ((t (:background "#244444"))))))
-

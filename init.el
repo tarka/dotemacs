@@ -82,7 +82,6 @@
 		      paredit
 		      paredit-menu
                       yasnippet
-		      markdown-mode
                       web-mode
 		      jinja2-mode
                       less-css-mode

@@ -5,6 +5,7 @@
 (tool-bar-mode -1)
 (column-number-mode 1)
 (setq inhibit-startup-screen t)
+(setq visible-bell nil)
 
 (defvar mac-p (string-equal system-type "darwin"))
 

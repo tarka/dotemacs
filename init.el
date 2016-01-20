@@ -102,7 +102,8 @@
 		      wc-mode
                       ssh-file-modes
                       dockerfile-mode
-                      haskell-mode))
+                      haskell-mode
+                      coffee-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available

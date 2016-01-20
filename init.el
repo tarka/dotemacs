@@ -1,7 +1,7 @@
 
 ;; Appearance and behaviour
 
-;(menu-bar-mode -1)
+(menu-bar-mode 1)
 (tool-bar-mode -1)
 (column-number-mode 1)
 (setq inhibit-startup-screen t)
@@ -101,7 +101,8 @@
 		      hide-lines
 		      wc-mode
                       ssh-file-modes
-                      dockerfile-mode))
+                      dockerfile-mode
+                      haskell-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available

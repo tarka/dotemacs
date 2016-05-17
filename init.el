@@ -5,7 +5,6 @@
 (tool-bar-mode -1)
 (column-number-mode 1)
 (setq inhibit-startup-screen t)
-(setq visible-bell nil)
 
 (defvar mac-p (string-equal system-type "darwin"))
 
@@ -103,7 +102,9 @@
                       ssh-file-modes
                       dockerfile-mode
                       haskell-mode
-                      coffee-mode))
+                      ghc
+                      coffee-mode
+                      js2-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available
@@ -220,14 +221,22 @@
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-to-list 'company-backends 'company-anaconda)
 
+;; Javascript
+(setq js-indent-level 2)
+
+;; JS2 Mode
+;(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;; Web-mode
 (require 'web-mode)
+
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.us\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.selmer\\'" . web-mode))
 (setq web-mode-engines-alist
       '(("underscore"  . "\\.us\\'")
         ("django"  . "\\.selmer\\'")))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
 
 (setq web-mode-enable-block-face t)
 (setq web-mode-enable-part-face t)
@@ -235,6 +244,7 @@
 
 ;; Clojure setup
 (require 'clojure-mode)
+(require 'clj-refactor)
 (add-hook 'clojure-mode-hook (lambda ()
                                (enable-paredit-mode)
                                (clj-refactor-mode 1)
@@ -263,6 +273,11 @@
                           (set (make-local-variable 'company-backends) '(company-go))
                           (company-mode)
                           (local-set-key  "\M-." 'godef-jump)))
+
+;; Haskell setup
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
 ;; Rust setup
 (autoload 'rust-mode "rust-mode" nil t)
@@ -316,8 +331,20 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
  '(column-number-mode t)
+ '(safe-local-variable-values
+   (quote
+    ((web-mode-content-types-alist
+      ("jsx" . ".*\\.js[x]?\\'"))
+     (eval add-to-list
+           (quote auto-mode-alist)
+           (quote
+            ("\\.js\\'" . web-mode)))
+     (whitespace-line-column . 80)
+     (lexical-binding . t))))
  '(show-paren-mode t)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(visible-bell nil))
+
 (when (not (null window-system))
   (setq proggy (if (eq window-system 'x) "ProggyCleanTT" "ProggyClean"))
   (custom-set-faces
@@ -327,3 +354,15 @@
    ;; If there is more than one, they won't work right.
    `(default ((t (:inherit nil :stipple nil :background "DarkSlateGrey" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family ,proggy))))
    '(highlight ((t (:background "#244444"))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "DarkSlateGrey" :foreground "White" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "unknown" :family "ProggyClean"))))
+ '(company-scrollbar-bg ((t (:background "#1b2f2f"))))
+ '(company-scrollbar-fg ((t (:background "#253f3f"))))
+ '(company-tooltip ((t (:inherit default :background "#121f1f"))))
+ '(company-tooltip-common ((t (:inherit font-lock-doc-face :background "DarkBlue"))))
+ '(company-tooltip-selection ((t (:inherit font-lock-comment-face :background "MidnightBlue"))))
+ '(highlight ((t (:background "#244444")))))

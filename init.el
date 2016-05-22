@@ -79,7 +79,6 @@
                       flx-ido
 		      magit
 		      clojure-mode
-		      cider
 		      midje-mode
 		      rainbow-delimiters
 		      paredit

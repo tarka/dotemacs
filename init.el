@@ -78,7 +78,6 @@
                       grizzl
                       flx-ido
 		      magit
-		      clojure-mode
 		      midje-mode
 		      rainbow-delimiters
 		      paredit

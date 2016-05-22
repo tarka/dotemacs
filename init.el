@@ -77,8 +77,8 @@
                       projectile
                       grizzl
                       flx-ido
+                      clojure-mode
 		      magit
-		      midje-mode
 		      rainbow-delimiters
 		      paredit
 		      paredit-menu

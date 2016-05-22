@@ -54,6 +54,7 @@
 (add-to-list 'auto-mode-alist '("\\.pp\\'" . puppet-mode))
 
 (setq-default indent-tabs-mode nil)
+(setq show-trailing-whitespace t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages setup
@@ -73,6 +74,9 @@
 
 (defvar my-packages '(exec-path-from-shell
                       company
+                      projectile
+                      grizzl
+                      flx-ido
 		      magit
 		      clojure-mode
 		      cider
@@ -108,7 +112,7 @@
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available
- 
+
 (when (not package-archive-contents)
   (package-refresh-contents))
 
@@ -162,6 +166,11 @@
 ;(require 'rainbow-delimiters)
 ;(global-rainbow-delimiters-mode)
 
+;; Cleanups
+
+(add-hook 'prog-mode-hook (lambda ()
+                            (setq show-trailing-whitespace t)))
+
 ;;; Enable undo-tree for everything, so you can M - _ to redo
 (global-undo-tree-mode)
 
@@ -173,6 +182,8 @@
       ido-create-new-buffer 'always
       ido-auto-merge-work-directories-length -1
       ido-file-extensions-order '(".md" ".txt" ".py" ".xml" ".el" ".ini" ".cfg" ".cnf"))
+(require 'flx-ido)
+(flx-ido-mode 1)
 
 
 ;; (require 'helm-config)
@@ -198,6 +209,11 @@
 (define-key paredit-mode-map (kbd "<C-left>") nil)
 
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+
+;; Projectile
+(setq projectile-completion-system 'grizzl)
+(projectile-global-mode)
+
 
 ;; Company mode auto-completion setup
 (require 'company)
@@ -266,7 +282,7 @@
 ;;    go get -v -u golang.org/x/tools/cmd/goimports
 
 (setq gofmt-command "goimports")
-(add-hook 'before-save-hook #'gofmt-before-save)
+;(add-hook 'before-save-hook #'gofmt-before-save)
 
 (require 'company-go)
 (add-hook 'go-mode-hook (lambda ()

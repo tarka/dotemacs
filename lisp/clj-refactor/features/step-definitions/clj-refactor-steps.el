@@ -32,25 +32,9 @@
        (lambda ()
          (setq cljr-project-clean-prompt nil)))
 
-(Given "^I switch auto-sort off$"
+(Given "^I switch warn-on-analyzer-needs-eval off$"
        (lambda ()
-         (setq cljr-auto-sort-ns nil)))
-
-(Given "^I switch auto-sort on$"
-       (lambda ()
-         (setq cljr-auto-sort-ns t)))
-
-(Given "^I set sort comparator to string length$"
-       (lambda ()
-         (setq cljr-sort-comparator 'cljr--string-length-comparator)))
-
-(Given "^I set sort comparator to semantic$"
-       (lambda ()
-         (setq cljr-sort-comparator 'cljr--semantic-comparator)))
-
-(Given "^I set sort comparator to string natural$"
-       (lambda ()
-         (setq cljr-sort-comparator 'cljr--string-natural-comparator)))
+         (setq cljr-warn-on-eval nil)))
 
 (Given "^I exit multiple-cursors-mode"
        (lambda ()
@@ -96,21 +80,37 @@
                                                       :match "")))
                                    "asterisk*")))
 
+(defun cljr--make-seeded-hash-table (&rest keys-and-values)
+  (let ((m (make-hash-table :test #'equal))
+        (kv-pairs (-partition 2 keys-and-values)))
+    (dolist (pair kv-pairs)
+      (puthash (car pair) (cadr pair) m))
+    m))
+
 (Given "^I call the add-missing-libspec callback directly with mock data to import"
        (lambda ()
-         (cljr--add-missing-libspec "Date" '((java.util.Date :class)))))
+         (cljr--add-missing-libspec
+          "Date" (list (cljr--make-seeded-hash-table
+                        :name 'java.util.Date :type :class)))))
 
 (Given "^I call the add-missing-libspec callback directly with mock data to refer split"
        (lambda ()
-         (cljr--add-missing-libspec "split" '((clojure.string  :ns)))))
+         (cljr--add-missing-libspec
+          "split" (list (cljr--make-seeded-hash-table
+                         :name 'clojure.string :type :ns)))))
 
 (Given "^I call the add-missing-libspec callback directly with mock data to alias clojure.string"
        (lambda ()
-         (cljr--add-missing-libspec "str/split" '((clojure.string :ns)))))
+         (cljr--add-missing-libspec "str/split"
+                                    (list (cljr--make-seeded-hash-table
+                                           :name 'clojure.string :type :ns)))))
 
 (Given "^I call the add-missing-libspec callback directly with mock data to require WebrequestHandler"
        (lambda ()
-         (cljr--add-missing-libspec "WebrequestHandler" '((modular.ring.WebrequestHandler :type)))))
+         (cljr--add-missing-libspec
+          "WebrequestHandler"
+          (list (cljr--make-seeded-hash-table
+                 :name 'modular.ring.WebrequestHandler :type :type)))))
 
 (Then "^the file should be named \"\\([^\"]+\\)\"$"
       (lambda (file-name-postfix)
@@ -403,6 +403,14 @@ pprint (cljs.pprint)}}"))))
       (lambda ()
         (validate-all-helpers)))
 
+(Given "^I call replace refer all with alias with mock data for \"\\(.*\\)\"$"
+       (lambda (ns-name)
+         (cljr--replace-refer-all-with-alias
+          ns-name
+          (edn-read
+           "({:line-beg 5 :line-end 5 :col-beg 13 :col-end 30 :file\"one.clj\" :name \"foo\"} {:line-beg 8 :line-end 8 :col-beg 15 :col-end 28 :file \"one.clj\" :name \"star*\"})")
+          "two")))
+
 (Given "^I call find usages for \"\\(.*\\)\"$"
        (lambda (symbol-name)
          (cljr--setup-find-symbol-buffer symbol-name)
@@ -431,3 +439,18 @@ pprint (cljs.pprint)}}"))))
 (And "^cljr--ns-path returns \"\\([^\"]+\\)\"$"
      (lambda (path)
        (setq cljr--ns-path-return-value path)))
+
+(And "^cljr--clean-ns sorts stuff$"
+     (lambda ()
+       ;; This might look slightly convoluted, but if we just return
+       ;; the correct ns form we're not testing the first half of the
+       ;; test
+       (cljr--goto-ns)
+       (replace-regexp "\\[clojure.string :as s\\]\n\\(\\s-+\\)\\[clj-time.core :refer :all\\]"
+                       "[clj-time.core :refer :all]
+\\1[clojure.string :as s]"
+                       nil (point) (cljr--point-after 'paredit-forward))))
+
+(And "^I disable cljr-clean-ns$"
+     (lambda ()
+       (defun cljr-clean-ns ()(interactive))))

@@ -78,6 +78,8 @@
                       grizzl
                       flx-ido
                       clojure-mode
+                      multiple-cursors inflections hydra ; For clj-refactor
+                      spinner seq queue edn ; For Cider
 		      magit
 		      rainbow-delimiters
 		      paredit
@@ -305,7 +307,7 @@
                             (require 'racer)
                             (racer-mode)
                             (setq-local company-idle-delay 0.5)
-                            (define-key rust-mode-map (kbd "TAB") #'racer-complete-or-indent)
+                            (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
                             (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)
                             (setq company-tooltip-align-annotations t)))
 

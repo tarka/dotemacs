@@ -108,7 +108,8 @@
                       haskell-mode
                       ghc
                       coffee-mode
-                      js2-mode))
+                      js2-mode
+                      fsharp-mode))
 
 ;;; auto-complete only seems to work as a manual install, however that
 ;;; manual install relies on popup being available
@@ -315,6 +316,9 @@
 
 (add-hook 'racer-mode-hook (lambda ()
                              (company-mode)))
+
+;; F# setup
+(setenv "MONO_MANAGED_WATCHER" "disabled")
 
 ;; Jinja2
 ;; (require 'jinja2-mode)

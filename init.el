@@ -5,7 +5,11 @@
 (tool-bar-mode -1)
 (column-number-mode 1)
 (setq inhibit-startup-screen t)
-(setq visible-bell t)
+
+(setq visible-bell nil)
+(setq ring-bell-function (lambda ()
+                           (invert-face 'mode-line)
+                           (run-with-timer 0.1 nil 'invert-face 'mode-line)))
 
 (defvar mac-p (string-equal system-type "darwin"))
 

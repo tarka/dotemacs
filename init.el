@@ -5,6 +5,7 @@
 (tool-bar-mode -1)
 (column-number-mode 1)
 (setq inhibit-startup-screen t)
+(setq visible-bell t)
 
 (defvar mac-p (string-equal system-type "darwin"))
 
@@ -97,7 +98,6 @@
                       go-mode
                       company-go
                       anaconda-mode
-;                      company-anaconda
                       toml-mode
 		      popup
 		      color-theme-solarized
@@ -235,7 +235,9 @@
 ;(add-hook 'python-mode-hook 'jedi:setup)
 
 (add-hook 'python-mode-hook 'anaconda-mode)
-(add-to-list 'company-backends 'company-anaconda)
+(eval-after-load "company"
+ '(add-to-list 'company-backends 'company-anaconda))
+
 
 ;; Javascript
 (setq js-indent-level 2)
@@ -358,8 +360,7 @@
      (whitespace-line-column . 80)
      (lexical-binding . t))))
  '(show-paren-mode t)
- '(tool-bar-mode nil)
- '(visible-bell nil))
+ '(tool-bar-mode nil))
 
 (when (not (null window-system))
   (setq proggy (if (eq window-system 'x) "ProggyCleanTT" "ProggyClean"))

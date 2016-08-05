@@ -325,8 +325,8 @@
 (setenv "MONO_MANAGED_WATCHER" "disabled")
 
 ;; Jinja2
-;; (require 'jinja2-mode)
-;; (add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
+;(require 'jinja2-mode)
+(add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
 
 
 ;; Gnus

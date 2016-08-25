@@ -45,7 +45,6 @@
 (global-set-key "\C-\M-y" 'clipboard-yank)
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
 
-
 (global-set-key (kbd "C-S-j") (lambda () ;; Join-forward Intellij-style
 				(interactive)
 				(join-line 1)))
@@ -170,6 +169,10 @@
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 ;(require 'rainbow-delimiters)
 ;(global-rainbow-delimiters-mode)
+
+(global-set-key (kbd "<f12>") 'compile)
+(setq compilation-window-height 30)
+
 
 ;; Cleanups
 
@@ -306,9 +309,9 @@
 (autoload 'rust-mode "rust-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 
+(setenv "CARGO_HOME" "~/.cargo/")
 (setq racer-rust-src-path "~/software/rust/src/")
-(setq racer-cmd "~/software/racer/target/release/racer")
-;(require 'rust-mode)
+(setq racer-cmd "~/.cargo/bin/racer")
 (add-hook 'rust-mode-hook (lambda ()
                                         ;(modify-syntax-entry ?_ "_" rust-mode-syntax-table)
                             (require 'racer)
@@ -316,7 +319,8 @@
                             (setq-local company-idle-delay 0.5)
                             (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
                             (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)
-                            (setq company-tooltip-align-annotations t)))
+                            (setq company-tooltip-align-annotations t)
+                            (setq-local compile-command "cargo test")))
 
 (add-hook 'racer-mode-hook (lambda ()
                              (company-mode)))

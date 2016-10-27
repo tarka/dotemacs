@@ -44,6 +44,8 @@
 (global-set-key "\C-c\C-o" 'other-window)
 (global-set-key "\C-\M-y" 'clipboard-yank)
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
+(global-set-key "\M-[" 'backward-paragraph)
+(global-set-key "\M-]" 'forward-paragraph)
 
 (global-set-key (kbd "C-S-j") (lambda () ;; Join-forward Intellij-style
 				(interactive)
@@ -309,9 +311,9 @@
 (autoload 'rust-mode "rust-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 
-(setenv "CARGO_HOME" "~/.cargo/")
-(setq racer-rust-src-path "~/software/rust/src/")
-(setq racer-cmd "~/.cargo/bin/racer")
+(setenv "CARGO_HOME" (expand-file-name "~/.cargo/"))
+(setq racer-rust-src-path (expand-file-name "~/software/rust/src/"))
+(setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))
 (add-hook 'rust-mode-hook (lambda ()
                                         ;(modify-syntax-entry ?_ "_" rust-mode-syntax-table)
                             (require 'racer)

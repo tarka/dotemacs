@@ -311,6 +311,8 @@
 (autoload 'rust-mode "rust-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 
+(setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
+(setq exec-path (append exec-path '("~/.cargo/bin/")))
 (setenv "CARGO_HOME" (expand-file-name "~/.cargo/"))
 (setq racer-rust-src-path (expand-file-name "~/software/rust/src/"))
 (setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))

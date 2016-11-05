@@ -46,6 +46,8 @@
 (global-set-key "\C-\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\M-[" 'backward-paragraph)
 (global-set-key "\M-]" 'forward-paragraph)
+(global-set-key "\M-p" 'backward-paragraph)
+(global-set-key "\M-n" 'forward-paragraph)
 
 (global-set-key (kbd "C-S-j") (lambda () ;; Join-forward Intellij-style
 				(interactive)

@@ -164,6 +164,15 @@ Also, the result should be the same regardless of whether the code is at the beg
      //
      // This is the second really really really really really really long paragraph" 1 89))
 
+(ert-deftest fill-paragraph-multi-line-style-comment ()
+  (test-fill-paragraph
+   "/* This is a very very very very very very very very long string
+ */"
+   "/* This is a very very very very
+ * very very very very long
+ * string
+ */"))
+
 (ert-deftest fill-paragraph-multi-line-style-inner-doc-comment ()
   (test-fill-paragraph
    "/*! This is a very very very very very very very long string
@@ -443,6 +452,209 @@ fn foo4(a:int,
 }
 "))
 
+(ert-deftest indent-body-after-where ()
+  (test-indent
+   "
+fn foo1(a: A, b: B) -> A
+    where A: Clone + Default, B: Eq {
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+
+fn foo2(a: A, b: B) -> A
+    where A: Clone + Default, B: Eq
+{
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-clauses-style1a ()
+  (test-indent
+   "
+fn foo1a(a: A, b: B, c: C) -> D
+    where A: Clone + Default,
+          B: Eq,
+          C: PartialEq,
+          D: PartialEq {
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-clauses-style1b ()
+  (test-indent
+   "
+fn foo1b(a: A, b: B, c: C) -> D
+    where A: Clone + Default,
+          B: Eq,
+          C: PartialEq,
+          D: PartialEq
+{
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-clauses-style2a ()
+  (test-indent
+   "
+fn foo2a(a: A, b: B, c: C) -> D where A: Clone + Default,
+                                      B: Eq,
+                                      C: PartialEq,
+                                      D: PartialEq {
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-clauses-style2b ()
+  (test-indent
+   "
+fn foo2b(a: A, b: B, c: C) -> D where A: Clone + Default,
+                                      B: Eq,
+                                      C: PartialEq,
+                                      D: PartialEq
+{
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-clauses-style3a ()
+  (test-indent
+   "
+fn foo3a(a: A, b: B, c: C) -> D where
+    A: Clone + Default,
+    B: Eq,
+    C: PartialEq,
+    D: PartialEq {
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-clauses-style3b ()
+  (test-indent
+   "
+fn foo3b(a: A, b: B, c: C) -> D where
+    A: Clone + Default,
+    B: Eq,
+    C: PartialEq,
+    D: PartialEq
+{
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-clauses-style4a ()
+  (let ((rust-indent-where-clause nil))
+    (test-indent
+     "
+fn foo4a(a: A, b: B, c: C) -> D
+where A: Clone + Default,
+      B: Eq,
+      C: PartialEq,
+      D: PartialEq {
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+")))
+
+(ert-deftest indent-align-where-clauses-style4b ()
+  (let ((rust-indent-where-clause nil))
+    (test-indent
+     "
+fn foo4b(a: A, b: B, c: C) -> D
+where A: Clone + Default,
+      B: Eq,
+      C: PartialEq,
+      D: PartialEq
+{
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+")))
+
+(ert-deftest indent-align-where-clauses-impl-example ()
+  (test-indent
+   "
+impl<'a, K, Q: ?Sized, V, S> Index<&'a Q> for HashMap<K, V, S>
+    where K: Eq + Hash + Borrow<Q>,
+          Q: Eq + Hash,
+          S: HashState,
+{
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-clauses-first-line ()
+  (test-indent
+   "fn foo1(a: A, b: B) -> A
+    where A: Clone + Default, B: Eq {
+    let body;
+    Foo {
+        bar: 3
+    }
+}
+"))
+
+(ert-deftest indent-align-where-in-comment1 ()
+  (test-indent
+   "/// - there must not exist an edge U->V in the graph where:
+#[derive(Clone, PartialEq, Eq)]
+pub struct Region { // <-- this should be flush with left margin!
+    entry: BasicBlockIndex,
+    leaves: BTreeMap<BasicBlockIndex, usize>,
+}
+"))
+
+(ert-deftest indent-align-where-in-comment2 ()
+  (test-indent
+   "fn foo<F,G>(f:F, g:G)
+    where F:Send,
+// where
+          G:Sized
+{
+    let body;
+}
+"))
+
+(ert-deftest indent-align-where-in-comment3 ()
+  (test-indent
+   "fn foo<F,G>(f:F, g:G)
+    where F:Send,
+// where      F:ThisIsNotActualCode,
+          G:Sized
+{
+    let body;
+}
+"))
+
 (ert-deftest indent-square-bracket-alignment ()
   (test-indent
    "
@@ -459,6 +671,25 @@ fn args_on_the_next_line( // with a comment
                   7, 6, 5];
 }
 "))
+
+(ert-deftest indent-closing-square-bracket ()
+  (test-indent
+   "fn blergh() {
+    let list = vec![
+        1,
+        2,
+        3,
+    ];
+}"))
+
+(ert-deftest indent-closing-paren ()
+  (test-indent
+   "fn blergh() {
+    call(
+        a,
+        function
+    );
+}"))
 
 (ert-deftest indent-nested-fns ()
   (test-indent
@@ -596,6 +827,24 @@ fn foo() {
     { bar('}'); }
     { bar(']'); }
     { bar(')'); }
+}
+"
+   ))
+
+;; This is a test for #103: a comment after the last struct member that does
+;; not have a trailing comma. The comment used to be indented one stop too
+;; far.
+(ert-deftest indent-comment-after-last-struct-member ()
+  (test-indent
+   "
+struct A {
+    x: u8
+    // comment
+}
+
+struct A {
+    x: u8
+    /* comment */
 }
 "
    ))
@@ -913,6 +1162,23 @@ All positions are position symbols found in `rust-test-positions-alist'."
    'nonblank-line-indented-already-middle-target
    #'indent-for-tab-command))
 
+(ert-deftest no-stack-overflow-in-rust-rewind-irrelevant ()
+  (with-temp-buffer
+    (rust-mode)
+    (insert "fn main() {\n    let x = 1;")
+    ;; Insert 150 separate comments on the same line
+    (dotimes (i 150)
+      (insert "/* foo */ "))
+    ;; Rewinding from the last commment to the end of the let needs at least
+    ;; 150 iterations, but if we limit the stack depth to 100 (this appears to
+    ;; be some minimum), a recursive function would overflow, throwing an
+    ;; error.
+    (let ((max-lisp-eval-depth 100))
+      (rust-rewind-irrelevant)
+      ;; Only a non-stack overflowing function would make it this far.  Also
+      ;; check that we rewound till after the ;
+      (should (= (char-before) ?\;)))))
+
 (defun rust-test-fontify-string (str)
   (with-temp-buffer
     (rust-mode)
@@ -1008,6 +1274,18 @@ list of substrings of `STR' each followed by its face."
      "main" font-lock-function-name-face
      "let" font-lock-keyword-face
      "'\\\\'" font-lock-string-face)))
+
+(ert-deftest font-lock-hex-escape-character-literal ()
+  (rust-test-font-lock
+   "let ch = '\\x1f';"
+   '("let" font-lock-keyword-face
+     "'\\x1f'" font-lock-string-face)))
+
+(ert-deftest font-lock-unicode-escape-character-literal ()
+  (rust-test-font-lock
+   "let ch = '\\u{1ffff}';"
+   '("let" font-lock-keyword-face
+     "'\\u{1ffff}'" font-lock-string-face)))
 
 (ert-deftest font-lock-raw-strings-no-hashes ()
   (rust-test-font-lock
@@ -1214,6 +1492,45 @@ this_is_not_a_string();)"
    "\"/*! doc */\""
    '("\"/*! doc */\"" font-lock-string-face)))
 
+(ert-deftest font-lock-module-def ()
+  (rust-test-font-lock
+   "mod foo;"
+   '("mod" font-lock-keyword-face
+     "foo" font-lock-constant-face)))
+
+(ert-deftest font-lock-module-use ()
+  (rust-test-font-lock
+   "use foo;"
+   '("use" font-lock-keyword-face
+     "foo" font-lock-constant-face)))
+
+(ert-deftest font-lock-module-path ()
+  (rust-test-font-lock
+   "foo::bar"
+   '("foo" font-lock-constant-face)))
+
+(ert-deftest font-lock-submodule-path ()
+  (rust-test-font-lock
+   "foo::bar::baz"
+   '("foo" font-lock-constant-face
+     "bar" font-lock-constant-face)))
+
+(ert-deftest font-lock-type ()
+  (rust-test-font-lock
+   "foo::Bar::baz"
+   '("foo" font-lock-constant-face
+     "Bar" font-lock-type-face)))
+
+(ert-deftest font-lock-type-annotation ()
+  "Ensure type annotations are not confused with modules."
+  (rust-test-font-lock
+   "parse::<i32>();"
+   ;; Only the i32 should have been highlighted.
+   '("i32" font-lock-type-face))
+  (rust-test-font-lock
+   "foo:: <i32>"
+   ;; Only the i32 should have been highlighted.
+   '("i32" font-lock-type-face)))
 
 (ert-deftest indent-method-chains-no-align ()
   (let ((rust-indent-method-chain nil)) (test-indent
@@ -1282,6 +1599,19 @@ fn main() {
 "
    )))
 
+(ert-deftest indent-method-chains-look-over-comment ()
+  (let ((rust-indent-method-chain t)) (test-indent
+   "
+fn main() {
+    thing.a.do_it
+    // A comment
+           .aligned
+    // Another comment
+           .more_alignment();
+}
+"
+   )))
+
 (ert-deftest indent-method-chains-comment ()
   (let ((rust-indent-method-chain t)) (test-indent
    "
@@ -1309,6 +1639,17 @@ fn main() { // comment here should not push next line out
 }
 "
    )))
+
+(ert-deftest indent-method-chains-after-comment2 ()
+  (let ((rust-indent-method-chain t)) (test-indent
+   "
+fn main() {
+    // Lorem ipsum lorem ipsum lorem ipsum lorem.ipsum
+    foo.bar()
+}
+"
+   )))
+
 
 (ert-deftest test-for-issue-36-syntax-corrupted-state ()
   "This is a test for a issue #36, which involved emacs's
@@ -2238,12 +2579,48 @@ Fontification needs to include this whole string or none of it.
       (should (<= font-lock-beg 1))
       (should (>= font-lock-end 12)))))
 
+(ert-deftest redo-syntax-after-change-far-from-point ()  
+  (let*
+      ((tmp-file-name (make-temp-file "rust-mdoe-test-issue104"))
+       (base-contents (apply 'concat (append '("fn foo() {\n\n}\n") (make-list 500 "// More stuff...\n") '("fn bar() {\n\n}\n")))))
+    ;; Create the temp file...
+    (with-temp-file tmp-file-name
+      (insert base-contents))
+    (with-temp-buffer
+      (insert-file-contents tmp-file-name 'VISIT nil nil 'REPLACE)
+      (rust-mode)
+      (goto-char (point-max))
+      (should (= 0 (rust-paren-level)))
+      (with-temp-file tmp-file-name
+        (insert base-contents)
+        (goto-char 12) ;; On the blank line in the middle of fn foo
+        (insert "    let z = 1 < 3;")
+        )
+      (revert-buffer 'IGNORE-AUTO 'NOCONFIRM 'PRESERVE-MODES)
+      (should (= 0 (rust-paren-level)))
+      )
+    )
+  )
+
+(ert-deftest rust-test-revert-hook-preserves-point ()
+  (with-temp-buffer
+    ;; Insert some code, and put point in the middle.
+    (insert "fn foo() {}\n")
+    (insert "fn bar() {}\n")
+    (insert "fn baz() {}\n")
+    (goto-char (point-min))
+    (forward-line 1)
+    (let ((initial-point (point)))
+      (rust--after-revert-hook)
+      (should (equal initial-point (point))))))
+
 ;; If electric-pair-mode is available, load it and run the tests that use it.  If not,
 ;; no error--the tests will be skipped.
 (require 'elec-pair nil t)
 
-;; The emacs 23 version of ERT does not have test skipping functionality.  So
-;; don't even define these tests if elec-pair is not available.
+;; The emacs 23 and 24 versions of ERT do not have test skipping
+;; functionality.  So don't even define these tests if elec-pair is
+;; not available.
 (when (featurep 'elec-pair)
   (defun test-electric-pair-insert (original point-pos char closer)
     (let ((old-electric-pair-mode electric-pair-mode))

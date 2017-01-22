@@ -89,8 +89,8 @@
                       grizzl
                       flx-ido
                       clojure-mode
-                      multiple-cursors inflections hydra ; For clj-refactor
-                      spinner seq queue edn ; For Cider
+                      cider
+                      clj-refactor
 		      magit
 		      rainbow-delimiters
 		      paredit

@@ -70,12 +70,15 @@
 ;; everything in init.el
 
 (require 'package)
-(setq package-archives
-      '(("gnu"          . "http://elpa.gnu.org/packages/")
-        ("marmalade"    . "http://marmalade-repo.org/packages/")
-        ("melpa-stable" . "http://stable.melpa.org/packages/")
-        ;("melpa"        . "http://melpa.org/packages/")
-        ("org"          . "http://orgmode.org/elpa/")))
+;; (setq package-archives
+;;       '(("gnu"          . "http://elpa.gnu.org/packages/")
+;;         ("marmalade"    . "http://marmalade-repo.org/packages/")
+;;         ("melpa-stable" . "http://stable.melpa.org/packages/")
+;;         ("melpa"        . "http://melpa.org/packages/")))
+
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
 
 (setq package-enable-at-startup nil)
 (package-initialize)

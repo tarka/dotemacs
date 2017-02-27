@@ -357,6 +357,8 @@
                                 (set-fill-column 80)
                                 (flyspell-mode)))
 
+(setq ispell-program-name "hunspell")
+
 ;; Docker support
 (add-to-list 'auto-mode-alist '("\\.dockerfile\\'" . dockerfile-mode))
 

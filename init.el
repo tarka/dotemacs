@@ -86,7 +86,6 @@
 (defvar my-packages '(exec-path-from-shell
                       company
                       projectile
-                      grizzl
                       flx-ido
                       clojure-mode
                       cider

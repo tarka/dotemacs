@@ -64,6 +64,19 @@
 (setq-default indent-tabs-mode nil)
 (setq show-trailing-whitespace t)
 
+;; Misc. editing/saving settings
+
+(setq default-directory (expand-file-name "~"))
+(setq require-final-newline t)
+
+(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t
+      vc-make-backup-files t)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages setup
 ;; Note; we're managing initialisation ourselves so we can do
@@ -136,19 +149,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc mode setup
 
-(setq default-directory (expand-file-name "~"))
-
 (if mac-p
     (exec-path-from-shell-initialize))
-
-;; Misc. editing/saving settings
-
-(setq backup-directory-alist `(("." . "~/.emacs.d/saves")))
-(setq delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 2
-      version-control t
-      vc-make-backup-files t)
 
 (require 'saveplace)
 (setq-default save-place t)

@@ -66,6 +66,11 @@
 (setq-default indent-tabs-mode nil)
 (setq show-trailing-whitespace t)
 
+(global-set-key (kbd "<f12>") 'compile)
+(setq compilation-window-height 30)
+
+(add-hook 'prog-mode-hook (lambda ()
+                            (setq show-trailing-whitespace t)))
 
 ;; Misc. editing/saving settings
 
@@ -99,27 +104,28 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-(defvar my-packages '(exec-path-from-shell
+(defvar my-packages '(use-package
+
                       company
                       projectile
-                      flx-ido
+
                       clojure-mode
                       clojure-mode-extra-font-locking
                       cider
                       clj-refactor
 		      magit
-		      rainbow-delimiters
+
 		      paredit
 		      paredit-menu
                       yasnippet
                       web-mode
 		      jinja2-mode
                       less-css-mode
-		      undo-tree
+
                       json-mode
 		      mustache-mode
 		      puppet-mode
-		      yaml-mode
+
 		      lua-mode
                       go-mode
                       company-go
@@ -153,57 +159,53 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Misc mode setup
 
-(if mac-p
-    (exec-path-from-shell-initialize))
+(setq use-package-always-ensure t)
 
-(require 'saveplace)
-(setq-default save-place t)
-(setq save-place-file "~/.emacs.d/saved-places")
+(use-package exec-path-from-shell
+  :if mac-p
+  :config (exec-path-from-shell-initialize))
 
+(use-package saveplace
+  :config
+  (setq-default save-place t)
+  (setq save-place-file "~/.emacs.d/saved-places"))
 
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
+(use-package uniquify
+  :ensure f
+  :config
+  (setq uniquify-buffer-name-style 'forward))
 
-(require 'recentf)
-(recentf-mode 1)
-(global-set-key "\C-x\ \C-r" 'recentf-open-files)
+(use-package recentf
+  :config
+  (recentf-mode 1)
+  (global-set-key "\C-x\ \C-r" 'recentf-open-files))
 
-;(require 'auto-complete-config)
-;(ac-config-default)
+(use-package yaml-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+  (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode)))
 
-;(require 'yaml-mode)
-;(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-;(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+(use-package rainbow-delimiters
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-
-;; Colour match parens and other structure characters to make code
-;; easy to follow
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-;(require 'rainbow-delimiters)
-;(global-rainbow-delimiters-mode)
-
-(global-set-key (kbd "<f12>") 'compile)
-(setq compilation-window-height 30)
-
-
-;; Cleanups
-
-(add-hook 'prog-mode-hook (lambda ()
-                            (setq show-trailing-whitespace t)))
-
-;;; Enable undo-tree for everything, so you can M - _ to redo
-(global-undo-tree-mode)
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode))
 
 ;; Interactive-do mode, mostly for file find
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-create-new-buffer 'always
-      ido-auto-merge-work-directories-length -1
-      ido-file-extensions-order '(".md" ".txt" ".py" ".xml" ".el" ".ini" ".cfg" ".cnf"))
-(require 'flx-ido)
-(flx-ido-mode 1)
+(use-package ido
+  :config
+  (ido-mode t)
+  (setq ido-enable-prefix nil
+        ido-enable-flex-matching t
+        ido-create-new-buffer 'always
+        ido-auto-merge-work-directories-length -1
+        ido-file-extensions-order '(".md" ".txt" ".py" ".xml" ".el" ".ini" ".cfg" ".cnf")))
+
+(use-package flx-ido
+  :config
+  (flx-ido-mode 1))
 
 
 ;; (require 'helm-config)

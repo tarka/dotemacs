@@ -110,18 +110,7 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-(defvar my-packages '(use-package
-
-                      anaconda-mode
-
-		      popup
-		      color-theme-solarized
-		      hide-lines
-
-                      ssh-file-modes
-
-                      js2-mode
-                      ))
+(defvar my-packages '(use-package))
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -177,6 +166,12 @@
   :mode "\\.toml\'")
 
 
+(use-package ssh-file-modes
+  :mode (".ssh/authorized_keys2?\\'"
+         ".ssh/known_hosts\\'"
+         "ssh_known_hosts\\'"))
+
+
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
@@ -215,6 +210,7 @@
   (projectile-global-mode))
 
 
+(use-package popup)
 (use-package company
   :config
   (add-hook 'after-init-hook 'global-company-mode))
@@ -232,7 +228,10 @@
 
 
 (use-package web-mode
-  :mode ("\\.html?\\'" "\\.us\\'" "\\.selmer\\'" "\\.jsx\\'")
+  :mode ("\\.html?\\'"
+         "\\.us\\'"
+         "\\.selmer\\'"
+         "\\.jsx\\'")
   :config
   (setq web-mode-engines-alist
         '(("underscore"  . "\\.us\\'")
@@ -242,8 +241,14 @@
   (setq web-mode-enable-part-face t))
 
 
+(use-package js2-mode
+  :mode "\\.js\\'")
+
+
 (use-package clojure-mode
-  :mode ("\\.clj\\'" "\\.cljs\\'" ".cljc\\'")
+  :mode ("\\.clj\\'"
+         "\\.cljs\\'"
+         "\\.cljc\\'")
   :config
   (add-hook 'clojure-mode-hook (lambda ()
                                  (require 'clojure-mode-extra-font-locking)

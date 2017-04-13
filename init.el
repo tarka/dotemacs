@@ -55,13 +55,12 @@
 				(interactive)
 				(join-line 1)))
 
+
 ;; Default modes
 (show-paren-mode)
 (global-font-lock-mode t)
 (auto-compression-mode t)
 (add-to-list 'completion-ignored-extensions ".svn/")
-
-(add-to-list 'auto-mode-alist '("\\.pp\\'" . puppet-mode))
 
 (setq-default indent-tabs-mode nil)
 (setq show-trailing-whitespace t)
@@ -71,6 +70,13 @@
 
 (add-hook 'prog-mode-hook (lambda ()
                             (setq show-trailing-whitespace t)))
+
+(setq js-indent-level 2)
+
+(setq ispell-program-name "hunspell")
+
+(setq gnus-select-method '(nntp "news.eu.supernews.com"))
+
 
 ;; Misc. editing/saving settings
 
@@ -106,45 +112,16 @@
 
 (defvar my-packages '(use-package
 
-                      company
-                      projectile
-
-                      clojure-mode
-                      clojure-mode-extra-font-locking
-                      cider
-                      clj-refactor
-		      magit
-
-		      paredit
-		      paredit-menu
-                      yasnippet
-                      web-mode
-		      jinja2-mode
-                      less-css-mode
-
-                      json-mode
-		      mustache-mode
-		      puppet-mode
-
-		      lua-mode
-                      go-mode
-                      company-go
                       anaconda-mode
-                      toml-mode
+
 		      popup
 		      color-theme-solarized
 		      hide-lines
-		      wc-mode
-                      ssh-file-modes
-                      dockerfile-mode
-                      haskell-mode
-                      ghc
-                      coffee-mode
-                      js2-mode
-                      fsharp-mode))
 
-;;; auto-complete only seems to work as a manual install, however that
-;;; manual install relies on popup being available
+                      ssh-file-modes
+
+                      js2-mode
+                      ))
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -156,44 +133,60 @@
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Misc mode setup
+;; Package setup
 
 (setq use-package-always-ensure t)
+
 
 (use-package exec-path-from-shell
   :if mac-p
   :config (exec-path-from-shell-initialize))
+
 
 (use-package saveplace
   :config
   (setq-default save-place t)
   (setq save-place-file "~/.emacs.d/saved-places"))
 
+
 (use-package uniquify
   :ensure f
   :config
   (setq uniquify-buffer-name-style 'forward))
+
 
 (use-package recentf
   :config
   (recentf-mode 1)
   (global-set-key "\C-x\ \C-r" 'recentf-open-files))
 
+
+(use-package magit)
+
+
+(use-package json-mode)
+
+
 (use-package yaml-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-  (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode)))
+  :mode ("\\.yml$" "\\.yaml$"))
+
+
+(use-package toml-mode
+  :mode "\\.toml\'")
+
 
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
+
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
 
-;; Interactive-do mode, mostly for file find
+
 (use-package ido
   :config
   (ido-mode t)
@@ -208,167 +201,107 @@
   (flx-ido-mode 1))
 
 
-;; (require 'helm-config)
-;; (helm-mode 1)
+(use-package paredit
+  :config
+  (define-key paredit-mode-map (kbd "<C-right>") nil)
+  (define-key paredit-mode-map (kbd "<C-left>") nil)
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode))
+(use-package paredit-menu)
 
 
-;; Yasnippet mode
-(require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets" t)
-;(yas-global-mode 1)
-(setq yas-prompt-functions '(yas-ido-prompt
-                             yas-dropdown-prompt
-                             yas-x-prompt
-                             yas-completing-prompt
-                             yas-no-prompt))
-(global-set-key "\M-i" 'yas/insert-snippet)
+(use-package projectile
+  :config
+  (setq projectile-completion-system 'grizzl)
+  (projectile-global-mode))
 
 
-;; Paredit mode
-(require 'paredit)
-(require 'paredit-menu)
-(define-key paredit-mode-map (kbd "<C-right>") nil)
-(define-key paredit-mode-map (kbd "<C-left>") nil)
-
-(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-
-;; Projectile
-(setq projectile-completion-system 'grizzl)
-(projectile-global-mode)
+(use-package company
+  :config
+  (add-hook 'after-init-hook 'global-company-mode))
 
 
-;; Company mode auto-completion setup
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-
-(require 'color)
-(let ((bg (face-attribute 'default :background)))
-  (custom-set-faces
-   `(company-tooltip ((t (:inherit default :background ,(color-darken-name bg 15)))))
-   `(company-scrollbar-bg ((t (:background ,(color-darken-name bg 10)))))
-   `(company-scrollbar-fg ((t (:background ,(color-darken-name bg 5)))))
-   `(company-tooltip-selection ((t (:inherit font-lock-comment-face :background "MidnightBlue"))))
-   `(company-tooltip-common ((t (:inherit font-lock-doc-face :background "DarkBlue"))))))
-
-;; Python setup
-;(require 'pymacs)
-;(pymacs-load "ropemacs" "rope-")
-
-;(add-hook 'python-mode-hook 'jedi:setup)
-
-(add-hook 'python-mode-hook 'anaconda-mode)
-(eval-after-load "company"
- '(add-to-list 'company-backends 'company-anaconda))
+(use-package color
+  :config
+  (let ((bg (face-attribute 'default :background)))
+    (custom-set-faces
+     `(company-tooltip ((t (:inherit default :background ,(color-darken-name bg 15)))))
+     `(company-scrollbar-bg ((t (:background ,(color-darken-name bg 10)))))
+     `(company-scrollbar-fg ((t (:background ,(color-darken-name bg 5)))))
+     `(company-tooltip-selection ((t (:inherit font-lock-comment-face :background "MidnightBlue"))))
+     `(company-tooltip-common ((t (:inherit font-lock-doc-face :background "DarkBlue")))))))
 
 
-;; Javascript
-(setq js-indent-level 2)
+(use-package web-mode
+  :mode ("\\.html?\\'" "\\.us\\'" "\\.selmer\\'" "\\.jsx\\'")
+  :config
+  (setq web-mode-engines-alist
+        '(("underscore"  . "\\.us\\'")
+          ("django"  . "\\.selmer\\'")))
 
-;; JS2 Mode
-;(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-;; Web-mode
-(require 'web-mode)
-
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.us\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.selmer\\'" . web-mode))
-(setq web-mode-engines-alist
-      '(("underscore"  . "\\.us\\'")
-        ("django"  . "\\.selmer\\'")))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-
-(setq web-mode-enable-block-face t)
-(setq web-mode-enable-part-face t)
+  (setq web-mode-enable-block-face t)
+  (setq web-mode-enable-part-face t))
 
 
-;; Clojure setup
-(require 'clojure-mode)
-(require 'clj-refactor)
-(add-hook 'clojure-mode-hook (lambda ()
-                               (enable-paredit-mode)
-                               (clj-refactor-mode 1)
-                               (cljr-add-keybindings-with-prefix "C-c C-r")))
-
-(setq cider-prompt-for-symbol nil)
-
-;; (require 'ac-nrepl)
-;; (add-hook 'cider-repl-mode-hook 'ac-nrepl-setup)
-;; (add-hook 'cider-mode-hook 'ac-nrepl-setup)
-;; (eval-after-load "auto-complete"
-;;   '(add-to-list 'ac-modes 'cider-repl-mode))
+(use-package clojure-mode
+  :mode ("\\.clj\\'" "\\.cljs\\'" ".cljc\\'")
+  :config
+  (add-hook 'clojure-mode-hook (lambda ()
+                                 (require 'clojure-mode-extra-font-locking)
+                                 (require 'cider)
+                                 (enable-paredit-mode)
+                                 (require 'clj-refactor)
+                                 (clj-refactor-mode 1)
+                                 (cljr-add-keybindings-with-prefix "C-c C-r")))
+  (setq cider-prompt-for-symbol nil))
+(use-package clojure-mode-extra-font-locking :defer t)
+(use-package clj-refactor :defer t)
 
 
-;; Go setup
-;;
-;;    go get -v -u code.google.com/p/rog-go/exp/cmd/godef
-;;    go get -v -u github.com/nsf/gocode
-;;    go get -v -u golang.org/x/tools/cmd/goimports
+(use-package rust-mode
+  :mode "\\.rs\\'"
+  :config
 
-(setq gofmt-command "goimports")
-;(add-hook 'before-save-hook #'gofmt-before-save)
-
-(require 'company-go)
-(add-hook 'go-mode-hook (lambda ()
-                          (set (make-local-variable 'company-backends) '(company-go))
-                          (company-mode)
-                          (local-set-key  "\M-." 'godef-jump)))
-
-;; Haskell setup
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-
-;; Rust setup
-(autoload 'rust-mode "rust-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-
-(setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
-(setq exec-path (append exec-path '("~/.cargo/bin/")))
-(setenv "CARGO_HOME" (expand-file-name "~/.cargo/"))
-(setq rust-root (car (split-string (shell-command-to-string "rustc --print sysroot"))))
-(setq racer-rust-src-path (format "%s/lib/rustlib/src/rust/src/" rust-root))
-(setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))
-(add-hook 'rust-mode-hook (lambda ()
+  (setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
+  (setq exec-path (append exec-path '("~/.cargo/bin/")))
+  (setenv "CARGO_HOME" (expand-file-name "~/.cargo/"))
+  (setq rust-root (car (split-string (shell-command-to-string "rustc --print sysroot"))))
+  (setq racer-rust-src-path (format "%s/lib/rustlib/src/rust/src/" rust-root))
+  (setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))
+  (add-hook 'rust-mode-hook (lambda ()
                                         ;(modify-syntax-entry ?_ "_" rust-mode-syntax-table)
-                            (require 'racer)
-                            (racer-mode)
-                            (setq-local company-idle-delay 0.5)
-                            (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-                            (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)
-                            (setq company-tooltip-align-annotations t)
-                            (setq-local compile-command "cargo test")))
+                              (require 'racer)
+                              (racer-mode)
+                              (setq-local company-idle-delay 0.5)
+                              (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+                              (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)
+                              (setq company-tooltip-align-annotations t)
+                              (setq-local compile-command "cargo test")))
 
-(add-hook 'racer-mode-hook (lambda ()
-                             (company-mode)))
-
-;; F# setup
-(setenv "MONO_MANAGED_WATCHER" "disabled")
-
-;; Jinja2
-;(require 'jinja2-mode)
-(add-to-list 'auto-mode-alist '("\\.j2\\'" . jinja2-mode))
+  (add-hook 'racer-mode-hook (lambda ()
+                               (company-mode))))
 
 
-;; Gnus
-(setq gnus-select-method '(nntp "news.eu.supernews.com"))
+(use-package fsharp-mode
+  :mode "\\.fs\\'"
+  :config
+  (setenv "MONO_MANAGED_WATCHER" "disabled"))
 
-;; Markdown
-(autoload 'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-(require 'wc-mode)
-(add-hook 'markdown-mode-hook (lambda ()
-                                (wc-mode)
-                                (auto-fill-mode)
-                                (set-fill-column 80)
-                                (flyspell-mode)))
+(use-package jinja2-mode
+  :mode "\\.j2\\'")
 
-(setq ispell-program-name "hunspell")
+
+(use-package wc-mode)
+(use-package markdown-mode
+  :mode ("\\.markdown\\'" "\\.md\\'")
+  :config
+  (add-hook 'markdown-mode-hook (lambda ()
+                                  (wc-mode)
+                                  (auto-fill-mode)
+                                  (set-fill-column 80)
+                                  (flyspell-mode))))
+
 
 ;; Docker support
-(add-to-list 'auto-mode-alist '("\\.dockerfile\\'" . dockerfile-mode))
-
-
-
+(use-package dockerfile-mode
+  :mode "\\.dockerfile\\'")

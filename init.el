@@ -97,11 +97,11 @@
 ;; everything in init.el
 
 (require 'package)
-;; (setq package-archives
-;;       '(("gnu"          . "http://elpa.gnu.org/packages/")
-;;         ("marmalade"    . "http://marmalade-repo.org/packages/")
-;;         ("melpa-stable" . "http://stable.melpa.org/packages/")
-;;         ("melpa"        . "http://melpa.org/packages/")))
+(setq package-archives
+      '(("gnu"          . "http://elpa.gnu.org/packages/")
+        ("marmalade"    . "http://marmalade-repo.org/packages/")
+        ("melpa-stable" . "http://stable.melpa.org/packages/")
+        ("melpa"        . "http://melpa.org/packages/")))
 
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -110,15 +110,13 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-(defvar my-packages '(use-package))
-
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
+(when (not (package-installed-p 'use-package))
+  (package-install 'use-package))
 
+; Manual install packages
 (let ((default-directory "~/.emacs.d/lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
@@ -127,6 +125,8 @@
 ;; Package setup
 
 (setq use-package-always-ensure t)
+(setq use-package-verbose t)
+(setq use-package-always-pin "melpa-stable")
 
 
 (use-package exec-path-from-shell
@@ -208,6 +208,9 @@
   :config
   (setq projectile-completion-system 'grizzl)
   (projectile-global-mode))
+
+(use-package grizzl
+  :pin melpa)
 
 
 (use-package popup)

@@ -103,10 +103,6 @@
         ("melpa-stable" . "http://stable.melpa.org/packages/")
         ("melpa"        . "http://melpa.org/packages/")))
 
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-
-
 (setq package-enable-at-startup nil)
 (package-initialize)
 
@@ -175,6 +171,9 @@
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+
+(use-package string-inflection)
 
 
 (use-package undo-tree
@@ -313,6 +312,5 @@
                                   (flyspell-mode))))
 
 
-;; Docker support
 (use-package dockerfile-mode
   :mode "\\.dockerfile\\'")

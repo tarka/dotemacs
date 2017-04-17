@@ -155,7 +155,8 @@
 
 
 (use-package yaml-mode
-  :mode ("\\.yml$" "\\.yaml$"))
+  :mode ("\\.yml$"
+         "\\.yaml$"))
 
 
 (use-package toml-mode
@@ -260,14 +261,15 @@
                                  (clj-refactor-mode 1)
                                  (cljr-add-keybindings-with-prefix "C-c C-r")))
   (setq cider-prompt-for-symbol nil))
-(use-package clojure-mode-extra-font-locking :defer t)
-(use-package clj-refactor :defer t)
+(use-package clojure-mode-extra-font-locking
+  :defer t)
+(use-package clj-refactor
+  :defer t)
 
 
 (use-package rust-mode
   :mode "\\.rs\\'"
   :config
-
   (setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
   (setq exec-path (append exec-path '("~/.cargo/bin/")))
   (setenv "CARGO_HOME" (expand-file-name "~/.cargo/"))
@@ -303,7 +305,8 @@
 
 (use-package wc-mode)
 (use-package markdown-mode
-  :mode ("\\.markdown\\'" "\\.md\\'")
+  :mode ("\\.markdown\\'"
+         "\\.md\\'")
   :config
   (add-hook 'markdown-mode-hook (lambda ()
                                   (wc-mode)

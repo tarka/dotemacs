@@ -5,6 +5,9 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
  '(column-number-mode t)
+ '(package-selected-packages
+   (quote
+    (racer yaml-mode web-mode wc-mode use-package undo-tree toml-mode ssh-file-modes rust-mode rainbow-delimiters puppet-mode projectile paredit-menu mustache-mode markdown-mode magit lua-mode less-css-mode json-mode js2-mode jinja2-mode hide-lines groovy-mode grizzl go-mode ghc fsharp-mode flx-ido exec-path-from-shell dockerfile-mode company-go color-theme-solarized coffee-mode clojure-mode-extra-font-locking clj-refactor anaconda-mode)))
  '(safe-local-variable-values
    (quote
     ((js-indent-level . 4)

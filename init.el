@@ -159,11 +159,12 @@
          "\\.yaml$"))
 
 
-(use-package toml-mode
+(use-package toml
   :mode "\\.toml\'")
 
 
 (use-package ssh-file-modes
+  :pin "marmalade"
   :mode (".ssh/authorized_keys2?\\'"
          ".ssh/known_hosts\\'"
          "ssh_known_hosts\\'"))
@@ -178,6 +179,7 @@
 
 
 (use-package undo-tree
+  :pin "melpa"
   :config
   (global-undo-tree-mode))
 
@@ -197,11 +199,13 @@
 
 
 (use-package paredit
+  :pin "melpa"
   :config
   (define-key paredit-mode-map (kbd "<C-right>") nil)
   (define-key paredit-mode-map (kbd "<C-left>") nil)
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode))
-(use-package paredit-menu)
+(use-package paredit-menu
+  :pin "melpa")
 
 
 (use-package projectile

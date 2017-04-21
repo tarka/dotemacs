@@ -281,10 +281,8 @@
   (setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
   (setq exec-path (append exec-path '("~/.cargo/bin/")))
   (setenv "CARGO_HOME" (expand-file-name "~/.cargo/"))
-  (setq rust-root (car (split-string (shell-command-to-string "rustc --print sysroot"))))
   (add-hook 'rust-mode-hook (lambda ()
                                         ;(modify-syntax-entry ?_ "_" rust-mode-syntax-table)
-                              (require 'racer)
                               (racer-mode)
                               (setq-local company-idle-delay 0.5)
                               (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
@@ -293,10 +291,12 @@
                               (setq-local compile-command "cargo test"))))
 
 (use-package racer
-  :defer t
-  :config
+  :commands racer-mode
+  :init
+  (setq rust-root (car (split-string (shell-command-to-string "rustc --print sysroot"))))
   (setq racer-rust-src-path (format "%s/lib/rustlib/src/rust/src/" rust-root))
   (setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))
+  :config
   (add-hook 'racer-mode-hook (lambda ()
                                (company-mode))))
 

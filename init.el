@@ -262,16 +262,16 @@
   :config
   (add-hook 'clojure-mode-hook (lambda ()
                                  (require 'clojure-mode-extra-font-locking)
-                                 (require 'cider)
                                  (enable-paredit-mode)
-                                 (require 'clj-refactor)
                                  (clj-refactor-mode 1)
                                  (cljr-add-keybindings-with-prefix "C-c C-r")))
   (setq cider-prompt-for-symbol nil)
   (setq cider-repl-display-help-banner nil))
-(use-package clojure-mode-extra-font-locking
-  :defer t)
+(use-package cider
+  :commands (cider-jack-in cider-connect))
 (use-package clj-refactor
+  :commands clj-refactor-mode)
+(use-package clojure-mode-extra-font-locking
   :defer t)
 
 

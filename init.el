@@ -160,7 +160,8 @@
          "\\.yaml$"))
 
 
-(use-package toml
+(use-package toml-mode
+  :pin melpa
   :mode "\\.toml\'")
 
 
@@ -254,9 +255,10 @@
 
 
 (use-package clojure-mode
-  :mode ("\\.clj\\'"
-         "\\.cljs\\'"
-         "\\.cljc\\'")
+  :mode (("\\.clj\\'"  . clojure-mode)
+         ("\\.cljs\\'" . clojurescript-mode)
+         ("\\.cljc\\'" . clojurec-mode)
+         ("\\.cljx\\'" . clojurex-mode))
   :config
   (add-hook 'clojure-mode-hook (lambda ()
                                  (require 'clojure-mode-extra-font-locking)

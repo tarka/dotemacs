@@ -284,10 +284,6 @@
   (add-hook 'rust-mode-hook (lambda ()
                               ;; (modify-syntax-entry ?_ "_" rust-mode-syntax-table)
                               (racer-mode)
-                              (setq-local company-idle-delay 0.5)
-                              (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-                              (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)
-                              (setq company-tooltip-align-annotations t)
                               (setq-local compile-command "cargo test"))))
 
 (use-package racer
@@ -297,7 +293,11 @@
   (setq racer-rust-src-path (format "%s/lib/rustlib/src/rust/src/" rust-root))
   (setq racer-cmd (expand-file-name "~/.cargo/bin/racer"))
   (add-hook 'racer-mode-hook (lambda ()
-                               (company-mode))))
+                               (company-mode)
+                               (setq-local company-idle-delay 0.5)
+                               (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+                               (define-key rust-mode-map (kbd "M-.") #'racer-find-definition)
+                               (setq company-tooltip-align-annotations t))))
 
 
 (use-package fsharp-mode

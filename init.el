@@ -151,7 +151,8 @@
 (use-package magit)
 
 
-(use-package json-mode)
+(use-package json-mode
+  :mode "\\.json\\'")
 
 
 (use-package yaml-mode
@@ -164,7 +165,7 @@
 
 
 (use-package ssh-file-modes
-  :pin "marmalade"
+  :pin marmalade
   :mode (".ssh/authorized_keys2?\\'"
          ".ssh/known_hosts\\'"
          "ssh_known_hosts\\'"))
@@ -179,7 +180,7 @@
 
 
 (use-package undo-tree
-  :pin "melpa"
+  :pin melpa
   :config
   (global-undo-tree-mode))
 
@@ -199,13 +200,13 @@
 
 
 (use-package paredit
-  :pin "melpa"
+  :pin melpa
   :config
   (define-key paredit-mode-map (kbd "<C-right>") nil)
   (define-key paredit-mode-map (kbd "<C-left>") nil)
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode))
 (use-package paredit-menu
-  :pin "melpa")
+  :pin melpa)
 
 
 (use-package projectile

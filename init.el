@@ -75,8 +75,6 @@
 
 (setq ispell-program-name "hunspell")
 
-(setq gnus-select-method '(nntp "news.eu.supernews.com"))
-
 
 ;; Misc. editing/saving settings
 
@@ -93,8 +91,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Packages setup
-;; Note; we're managing initialisation ourselves so we can do
-;; everything in init.el
 
 (require 'package)
 (setq package-archives

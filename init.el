@@ -1,6 +1,3 @@
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
 ;; Appearance and behaviour
 
 (menu-bar-mode -1)
@@ -18,12 +15,11 @@
 
 (defvar mac-p (string-equal system-type "darwin"))
 
-
 (when (not (null window-system))
   (set-background-color "DarkSlateGrey")
   (set-foreground-color "White")
   (setq frame-background-mode 'dark)
-;  (set-frame-font "-windows-proggy clean-medium-r-normal-sans-13-80-96-96-c-70-iso8859-1")
+  (set-frame-font "-*-Scr11-normal-normal-normal-*-11-*-*-*-m-0-iso10646-1")
   (setq font-lock-comment-face '(:foreground "Pink"))
   (global-set-key [?\C-z] 'undo))
 
@@ -340,3 +336,8 @@
 (use-package dockerfile-mode
   :mode ("Dockerfile\\'"
          "\\.dockerfile\\'"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Custom config
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)

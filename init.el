@@ -3,7 +3,7 @@
 
 ;; Appearance and behaviour
 
-(menu-bar-mode 1)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode 1)
 (setq inhibit-startup-screen t)
@@ -25,6 +25,13 @@
   (global-set-key [?\C-z] 'undo))
 
 (setq mac-allow-anti-aliasing nil)
+
+(defun monitor-mode ()
+  (interactive)
+  (set-frame-font "-unknown-ProggyCleanTTSZBP-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1" nil t))
+(defun lcd-mode ()
+  (interactive)
+  (set-frame-font "-adobe-Source Code Pro-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1" nil t))
 
 ;; Keys
 (defun switch-buffer-immediate ()

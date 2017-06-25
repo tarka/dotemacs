@@ -13,6 +13,9 @@
                            (invert-face 'mode-line)
                            (run-with-timer 0.1 nil 'invert-face 'mode-line)))
 
+(server-start)
+
+
 (defvar mac-p (string-equal system-type "darwin"))
 
 
@@ -31,7 +34,7 @@
   (set-frame-font "-unknown-ProggyCleanTTSZBP-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1" nil t))
 (defun lcd-mode ()
   (interactive)
-  (set-frame-font "-adobe-Source Code Pro-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1" nil t))
+  (set-frame-font "-adobe-Source Code Pro-normal-normal-normal-*-22-*-*-*-m-0-iso10646-1" nil t))
 
 ;; Keys
 (defun switch-buffer-immediate ()
@@ -254,7 +257,9 @@
 
 
 (use-package js2-mode
-  :mode "\\.js\\'")
+  :mode "\\.js\\'"
+  :config
+  (js2-mode-hide-warnings-and-errors))
 
 
 (use-package clojure-mode
@@ -271,7 +276,9 @@
   (setq cider-prompt-for-symbol nil)
   (setq cider-repl-display-help-banner nil))
 (use-package cider
-  :commands (cider-jack-in cider-connect))
+  :commands (cider-jack-in cider-connect)
+  :config
+  (setq cider-repl-history-file "~/.cider-repl-history"))
 (use-package clj-refactor
   :commands clj-refactor-mode)
 (use-package clojure-mode-extra-font-locking

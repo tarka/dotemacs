@@ -35,6 +35,9 @@
 (defun lcd-mode ()
   (interactive)
   (set-frame-font "-adobe-Source Code Pro-normal-normal-normal-*-22-*-*-*-m-0-iso10646-1" nil t))
+(defun lcd2-mode ()
+  (interactive)
+  (set-frame-font "-adobe-Source Code Pro-normal-normal-normal-*-15-*-*-*-m-0-iso10646-1" nil t))
 
 ;; Keys
 (defun switch-buffer-immediate ()
@@ -280,7 +283,9 @@
   :config
   (setq cider-repl-history-file "~/.cider-repl-history"))
 (use-package clj-refactor
-  :commands clj-refactor-mode)
+  :commands clj-refactor-mode
+  :config
+  (setq cljr-favor-prefix-notation nil))
 (use-package clojure-mode-extra-font-locking
   :defer t)
 

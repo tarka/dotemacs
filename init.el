@@ -84,7 +84,6 @@
 
 (setq ispell-program-name "hunspell")
 
-
 ;; Misc. editing/saving settings
 
 (setq default-directory (expand-file-name "~"))
@@ -281,7 +280,14 @@
 (use-package clj-refactor
   :commands clj-refactor-mode
   :config
-  (setq cljr-favor-prefix-notation nil))
+  (setq cljr-favor-prefix-notation nil)
+  (setq cljr-magic-require-namespaces
+  '(("io"   . "clojure.java.io")
+    ("set"  . "clojure.set")
+    ("str"  . "clojure.string")
+    ("walk" . "clojure.walk")
+    ("zip"  . "clojure.zip")
+    ("a"    . "clojure.core.async"))))
 (use-package clojure-mode-extra-font-locking
   :defer t)
 

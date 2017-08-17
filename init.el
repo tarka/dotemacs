@@ -155,6 +155,12 @@
 (use-package magit)
 
 
+(use-package git-gutter-fringe
+  :config
+  (setq git-gutter-fr:side 'right-fringe)
+  (add-hook 'prog-mode-hook #'git-gutter-mode))
+
+
 (use-package json-mode
   :mode "\\.json\\'")
 
@@ -199,6 +205,11 @@
         ido-auto-merge-work-directories-length -1
         ido-file-extensions-order '(".md" ".txt" ".py" ".xml" ".el" ".ini" ".cfg" ".cnf")))
 
+(use-package ido-vertical-mode
+  :config
+  (ido-vertical-mode t)
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only))
+
 (use-package flx-ido
   :config
   (flx-ido-mode 1))
@@ -212,6 +223,11 @@
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode))
 (use-package paredit-menu
   :pin melpa)
+
+
+(use-package smartparens
+  :config
+  (require 'smartparens-config))
 
 
 (use-package projectile
